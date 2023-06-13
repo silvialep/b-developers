@@ -56,14 +56,14 @@
                         <div class="mb-4 row">
                             <label for="skills" class="col-md-4 col-form-label text-md-right">{{ __('Skills') }}</label>
 
-                            @foreach($skills as $skill)
-                                <div class="form-check">
-                                    <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked(in_array($skill->id, old('skills', [])))>
-                                    <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
-                                </div>
-                            @endforeach
+                            <div class="form-check">
+                                @foreach($skills as $skill)
+                                <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked(in_array($skill->id, old('skills', [])))>
+                                <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
+                                @endforeach
+                            </div>
                             @error('skills')
-                            <span class="invalid-feedback" role="alert">
+                            <span class="text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror

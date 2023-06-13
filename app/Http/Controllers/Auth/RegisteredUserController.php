@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'last_name' => ['required', 'string', 'max:50'],
             'address' => ['required', 'string', 'max:50'],
-            'skills' => ['required',],
+            'skills' => ['required'],
             // 'skills.*.skills' => ['required'],
         ]);
 
