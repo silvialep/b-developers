@@ -9,6 +9,10 @@ class Developer extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id', 'address', 'last_name', 'slug'
+    ];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
