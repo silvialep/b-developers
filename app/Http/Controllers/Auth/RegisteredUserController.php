@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Developer;
+use App\Models\Skill;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -22,7 +23,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $skills = Skill::all();
+        return view('auth.register', compact('skills'));
     }
 
     /**
@@ -38,6 +40,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'last_name' => ['required', 'string', 'max:50'],
             'address' => ['required', 'string', 'max:50'],
+            'skills' => ['required',],
+            // 'skills.*.skills' => ['required'],
         ]);
 
         $user = User::create([
@@ -48,14 +52,19 @@ class RegisteredUserController extends Controller
 
         //___________________
 
-        $completeName = $request->name . ' ' . $request->last_name; 
+        $completeName = $request->name . ' ' . $request->last_name;
+        $formData = $request->all();
 
-        Developer::create([
+        $developer = Developer::create([
             'user_id' => $user->id,
             'last_name' => $request->last_name,
             'slug' => Str::slug($completeName, '-'),
             'address' => $request->address,
         ]);
+
+        if (array_key_exists('skills', $formData)) {
+            $developer->skills()->attach($formData['skills']);
+        }
 
 
 

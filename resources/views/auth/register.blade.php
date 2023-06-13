@@ -54,6 +54,20 @@
                         </div>
 
                         <div class="mb-4 row">
+                            @foreach($skills as $skill)
+                                <div class="form-check">
+                                    <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked(in_array($skill->id, old('skills', [])))>
+                                    <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
+                                </div>
+                            @endforeach
+                            @error('skills')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4 row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
                             <div class="col-md-6">
