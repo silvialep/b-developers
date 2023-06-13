@@ -54,6 +54,8 @@
                         </div>
 
                         <div class="mb-4 row">
+                            <label for="skills" class="col-md-4 col-form-label text-md-right">{{ __('Skills') }}</label>
+
                             @foreach($skills as $skill)
                                 <div class="form-check">
                                     <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked(in_array($skill->id, old('skills', [])))>
