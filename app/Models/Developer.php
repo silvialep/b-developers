@@ -17,4 +17,9 @@ class Developer extends Model
     {
         return $this->belongsToMany(Skill::class);
     }
+
+    public function advertisements()
+    {
+        return $this->belongsToMany(Advertisement::class);
+    }
 }
