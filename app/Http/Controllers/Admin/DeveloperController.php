@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Developer;
+use App\Models\User;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Str;
 
 class DeveloperController extends Controller
 {
@@ -60,7 +63,10 @@ class DeveloperController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $developer = Developer::FindOrFail($id);
+
+        return view('admin.profile.edit', compact('developer'));
     }
 
     /**
@@ -72,7 +78,23 @@ class DeveloperController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // qui validiamo i dati
+        $formData = $request->all();
+
+        // qui controllo se ho immagine di profilo e cv
+
+        $developer = Developer::FindOrFail($id);
+        $user_id = $developer->user_id;
+        $user = User::where('id', $user_id)->first();
+
+        $fullName = $user->name . $developer->last_name;
+
+        $formData['slug'] = Str::slug($fullName, '-');
+
+        $developer->update($formData);
+        
+        return redirect()->route('admin.profile.show', $developer);
+
     }
 
     /**

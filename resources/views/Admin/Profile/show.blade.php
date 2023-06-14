@@ -22,8 +22,10 @@
 
 
 
+    <div class="buttons mt-3">
+        <a href="{{route('admin.profile.edit', $developer)}}" class="btn btn-primary">Modifica</a>
+    </div>
 </div>
-
 
 
 
