@@ -72,6 +72,7 @@
 
         {{-- Skills --}}
         <div class="mb-3 form-group">
+          <strong>Specializzazioni</strong>
           <div class="form-check">
             @foreach($skills as $skill)
 
