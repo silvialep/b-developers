@@ -19,7 +19,28 @@
     <div class="services"><strong>Prestazioni: </strong>{{$developer->services}}</div>
     <hr>
     <div class="role"><strong>Titolo: </strong>{{$developer->role}}</div>
-
+    <hr>
+    <div class="skills">
+      <strong>Skills</strong>
+        <ul>
+            @foreach($developer->skills as $skill)
+              <li>{{$skill->name}}</li>
+            @endforeach
+        </ul>
+    </div>
+    <hr>
+    <div class="adv">
+      <strong>Sponsorizzazione</strong>
+      <div>
+        @if(count($developer->advertisements)>0)
+          @foreach($developer->advertisements as $adv)
+            <span>{{$adv->name}}</span>
+          @endforeach
+        @else
+          <span>Profilo non sponsorizzato.</span>
+        @endif
+      </div>
+    </div>
 
 
     <div class="buttons mt-3">
