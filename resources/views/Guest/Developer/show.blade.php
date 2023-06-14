@@ -14,6 +14,14 @@
         <div class="phone mt-1"><strong>Telefono: </strong>{{$developer->phone}}</div>
         <div class="role mt-1"><strong>Titolo: </strong>{{$developer->role}}</div>
         <div class="services mt-1"><strong>Prestazioni: </strong>{{$developer->services}}</div>
+        <div class="skills">
+          <strong>Skills</strong>
+          <ul>
+              @foreach($developer->skills as $skill)
+                  <li>{{$skill->name}}</li>
+              @endforeach
+          </ul>
+        </div>
 
     </div>
 @endsection
