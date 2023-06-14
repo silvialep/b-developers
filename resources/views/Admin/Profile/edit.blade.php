@@ -70,6 +70,28 @@
     
         </div>
 
+        {{-- Skills --}}
+        <div class="mb-3 form-group">
+          <div class="form-check">
+            @foreach($skills as $skill)
+
+            @if($errors->any())
+            <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked(in_array($skill->id, old('skills', [])))>
+            @else
+              <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked($developer->skills->contains($skill))>
+            @endif
+              <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
+            @endforeach
+          </div>
+          
+          @error('skills')
+            <div class="text-danger">
+              {{$message}}
+            </div> 
+          @enderror
+
+        </div>
+
         <button class="btn btn-primary" type="submit">Salva</button>
 
 

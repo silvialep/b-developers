@@ -67,7 +67,10 @@ class DeveloperController extends Controller
 
         $developer = Developer::FindOrFail($id);
 
-        return view('admin.profile.edit', compact('developer'));
+        // skills
+        $skills = Skill::all();
+
+        return view('admin.profile.edit', compact('developer', 'skills'));
     }
 
     /**
@@ -93,6 +96,13 @@ class DeveloperController extends Controller
         $formData['slug'] = Str::slug($fullName, '-');
 
         $developer->update($formData);
+
+        // controllo modifiche skills
+        if(array_key_exists('skills', $formData)){
+            $developer->skills()->sync($formData['skills']);
+        } else {
+            $developer->skills()->detach();
+        }
         
         return redirect()->route('admin.profile.show', $developer);
 
