@@ -9,14 +9,14 @@
             <a href="{{route('admin.profile.show', $developer->id)}}" class="card dashboard-card" style="width: 18rem;">
                 <img src="{{Vite::asset('resources/img/edit-profile.svg')}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-text">Edit Profile</h5>
+                  <h5 class="card-text">Modifica Profilo</h5>
                 </div>
             </a>
         
             <a href="#" class="card dashboard-card" style="width: 18rem;">
                 <img src="{{Vite::asset('resources/img/messages.svg')}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-text">My messages</h5>
+                  <h5 class="card-text">Messaggi</h5>
                 </div>
             </a>
         </div>
@@ -25,14 +25,14 @@
             <a href="#" class="card dashboard-card" style="width: 18rem;">
                 <img src="{{Vite::asset('resources/img/reviews.svg')}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-text">My Reviews</h5>
+                  <h5 class="card-text">Recensioni</h5>
                 </div>
             </a>
         
               <a href="#" class="card dashboard-card" style="width: 18rem;">
                 <img src="{{Vite::asset('resources/img/statistic.svg')}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-text">Statistics</h5>
+                  <h5 class="card-text">Statistiche</h5>
                 </div>
             </a>
         </div>
