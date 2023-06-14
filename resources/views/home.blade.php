@@ -3,7 +3,7 @@
 
     <div class="container mt-4">
 
-        <h1>Homepage</h1>
+        <h1>Developers</h1>
 
         <div class="d-flex flex-wrap gap-3">
 
