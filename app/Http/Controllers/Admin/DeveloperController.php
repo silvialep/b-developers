@@ -15,7 +15,7 @@ class DeveloperController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**

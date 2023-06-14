@@ -1,1 +1,18 @@
-@import '~bootstrap/scss/bootstrap'
+@import '~bootstrap/scss/bootstrap';
+
+// dashboard
+
+#dashboard-row{
+    
+    margin-top: 200px;
+    
+    .dashboard-card{
+        text-align: center;
+        
+        img{
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+        }
+    }
+}
