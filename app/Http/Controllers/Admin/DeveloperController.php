@@ -15,7 +15,7 @@ class DeveloperController extends Controller
      */
     public function index()
     {
-        
+
     }
 
     /**
@@ -42,21 +42,23 @@ class DeveloperController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Developer  $developer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Developer $developer)
+    public function show($id)
     {
-        //
+        $developer = Developer::FindOrFail($id);
+
+        return view('admin.profile.show', compact('developer'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Developer  $developer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Developer $developer)
+    public function edit($id)
     {
         //
     }
@@ -65,10 +67,10 @@ class DeveloperController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Developer  $developer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Developer $developer)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +78,10 @@ class DeveloperController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Developer  $developer
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Developer $developer)
+    public function destroy($id)
     {
         //
     }

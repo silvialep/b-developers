@@ -12,15 +12,15 @@ class DashboardController extends Controller
 {
     public function home() {
 
-        $developers = Developer::all();
+        $user = Auth::user();
 
-        $developer_id = Auth::id();
-
-        $developer = Developer::where('user_id', $developer_id)->get();
+        $developer = $user->developer;
 
 
         return view('admin.dashboard', compact('developer'));
     }
+
+
 }
 
 

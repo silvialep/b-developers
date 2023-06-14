@@ -6,7 +6,7 @@
 
     <div class="row d-flex flex-wrap justify-content-center gap-5" id="dashboard-row">
         <div class="col-12 d-flex justify-content-center gap-5">
-            <a href="#" class="card dashboard-card" style="width: 18rem;">
+            <a href="{{route('admin.profile.show', $developer->id)}}" class="card dashboard-card" style="width: 18rem;">
                 <img src="{{Vite::asset('resources/img/edit-profile.svg')}}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-text">Edit Profile</h5>
