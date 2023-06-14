@@ -7,9 +7,8 @@
     <h1>Il mio profilo</h1>
     <hr>
     <div class="img">
-        <img src="..." alt="...">
+        <img id="profile-pic" src="{{asset('storage/' . $developer->picture)}}" alt="profile-picture">
     </div>
-    <hr>
     <h2>{{$developer->user->name}} {{$developer->last_name}}</h2>
     <hr>
     <div class="address"><strong>Indirizzo: </strong>{{$developer->address}}</div>

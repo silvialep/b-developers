@@ -7,7 +7,7 @@ use App\Models\Developer;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class DeveloperController extends Controller
@@ -85,9 +85,22 @@ class DeveloperController extends Controller
         // qui validiamo i dati
         $formData = $request->all();
 
-        // qui controllo se ho immagine di profilo e cv
-
         $developer = Developer::FindOrFail($id);
+
+        // qui controllo se ho immagine di profilo e cv
+        if($request->hasFile('picture')){
+          if($developer->picture){
+            Storage::delete($developer->picture);
+          }
+
+          // mi salvo il percorso nella cartella developer_pictures
+          $path = Storage::put('developer_pictures', $request->picture);
+
+          // memorizzo il path dell'immagine nella tabella
+          $formData['picture'] = $path;
+          
+        }
+        
         $user_id = $developer->user_id;
         $user = User::where('id', $user_id)->first();
 

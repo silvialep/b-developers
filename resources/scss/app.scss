@@ -16,3 +16,26 @@
         }
     }
 }
+
+// profile
+
+.img {
+  #profile-pic{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: top;
+
+    border-radius: 50%;
+  }
+}
+
+// Homepage
+.card{
+  #profile-pic{
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: top;
+  }
+}

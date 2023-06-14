@@ -8,8 +8,8 @@
         <div class="d-flex flex-wrap gap-3">
 
             @foreach ($developers as $developer)
-            <div class="card" style="width: 18rem; height:450px">
-                <img src="..." class="card-img-top p-3" alt="...">
+            <div class="card" style="width: 18rem;">
+                <img id="profile-pic" class="card-img-top" src="{{asset('storage/' . $developer->picture)}}" alt="profile-picture">
                 <div class="card-body p-0 d-flex flex-column">
                   <h5 class="card-title px-3">{{$developer->user?->name}} {{$developer->last_name}}</h5>
                   <hr>

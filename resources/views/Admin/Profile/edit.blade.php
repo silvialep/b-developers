@@ -4,7 +4,7 @@
 
 <div class="container mt-3">
 
-    <form action="{{route('admin.profile.update', $developer)}}" method="POST">
+    <form action="{{route('admin.profile.update', $developer)}}" method="POST" enctype="multipart/form-data">
 
         @csrf
         
@@ -92,6 +92,18 @@
           @enderror
 
         </div>
+
+        <div class="mb-3">
+          <label for="picture">Immagine del profilo</label>
+          <input type="file" id="picture" name="picture" class="form-control @error('picture') is-invalid @enderror">
+          
+          @error('picture')
+            <div class="invalid-feedback">
+              {{$message}}
+            </div>
+          @enderror
+        </div>
+
 
         <button class="btn btn-primary" type="submit">Salva</button>
 

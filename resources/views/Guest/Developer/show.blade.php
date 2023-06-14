@@ -5,6 +5,9 @@
     <div class="container mt-4">
 
         <h1>Dettaglio Sviluppatore</h1>
+        <div class="img">
+            <img id="profile-pic" src="{{asset('storage/' . $developer->picture)}}" alt="profile-picture">
+        </div>
         <h3>{{$developer->user->name}} {{$developer->last_name}}</h3>
         <hr>
         <div class="address mt-1"><strong>Indirizzo: </strong>{{$developer->address}}</div>
