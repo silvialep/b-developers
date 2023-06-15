@@ -129,6 +129,18 @@ class DeveloperController extends Controller
           $formData['picture'] = $path;
           
         }
+
+        if ($request->hasFile('cv')) {
+            if ($developer->cv) {
+                Storage::delete($developer->cv);
+            }
+
+            // mi salvo il percorso nella cartella developer_cvs
+            $path = Storage::put('developer_cvs', $request->cv);
+
+            // memorizzo il path dell'immagine nella tabella
+            $formData['cv'] = $path;
+        }
         
         // $user_id = $developer->user_id;
         // $user = User::where('id', $user_id)->first();

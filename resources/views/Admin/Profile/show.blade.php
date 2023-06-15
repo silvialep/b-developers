@@ -28,6 +28,10 @@
         </ul>
     </div>
     <hr>
+    <div class="img">
+        <img id="cv-pic" src="{{asset('storage/' . $developer->cv)}}" alt="profile-cv">
+    </div>
+    <hr>
     <div class="adv">
       <strong>Sponsorizzazione</strong>
       <div>

@@ -146,6 +146,18 @@
         </div>
 
 
+        <div class="mb-3">
+          <label for="cv">Carica il tuo cv</label>
+          <input type="file" id="cv" name="cv" class="form-control @error('cv') is-invalid @enderror">
+          
+          @error('cv')
+            <div class="invalid-feedback">
+              {{$message}}
+            </div>
+          @enderror
+        </div>
+
+
         <button class="btn btn-primary" type="submit">Salva</button>
 
 

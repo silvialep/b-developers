@@ -10,7 +10,7 @@ class Developer extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'address', 'last_name', 'slug', 'phone', 'services', 'role', 'picture'
+        'user_id', 'address', 'last_name', 'slug', 'phone', 'services', 'role', 'picture', 'cv'
     ];
 
     public function user() {
