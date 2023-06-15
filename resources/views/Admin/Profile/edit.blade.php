@@ -2,6 +2,35 @@
 
 @section('content')
 
+<script>
+  // checkbox validation
+  function handleData(){ 
+    const form_data = new FormData(document.querySelector("form"));
+    const checkbox = document.querySelectorAll('input[type=checkbox]');
+
+    let stop = false;
+
+    for(let i=0; i<checkbox.length; i++){
+      if(checkbox[i].checked){
+        stop = true;
+
+        break;
+      }
+    }
+
+    if(!stop){
+      // console.log('stop');
+      document.getElementById("chk_option_error").style.visibility = "visible";
+      return false;
+    } else {
+      // console.log('continua');
+      document.getElementById("chk_option_error").style.visibility = "hidden";
+      return true;
+    }
+
+  }
+</script>
+
 <div class="container mt-3">
 
     <div class="name">
@@ -12,7 +41,7 @@
       <img id="profile-pic" src="{{asset('storage/' . $developer->picture)}}" alt="profile-picture">
     </div>
 
-    <form action="{{route('admin.profile.update', $developer)}}" method="POST" enctype="multipart/form-data">
+    <form action="{{route('admin.profile.update', $developer)}}" method="POST" enctype="multipart/form-data" onsubmit="return !! (handleData())">
 
         @csrf
         
@@ -91,6 +120,10 @@
             @endif
               <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
             @endforeach
+          </div>
+
+          <div style="visibility:hidden; color:red; " id="chk_option_error">
+            Seleziona almeno una specializzazione.
           </div>
           
           @error('skills')
