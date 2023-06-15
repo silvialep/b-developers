@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Developer;
+use App\Models\Rating;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ReviewController extends Controller
 {
@@ -18,10 +21,12 @@ class ReviewController extends Controller
     {
         $user = Auth::user();
         $reviews = Review::where('developer_id', $user->developer->id)->get();
-        // dd($reviews);
+        $ratings = Rating::where('developer_id', $user->developer->id)->get();
+        // dd($ratings);
 
 
-        return view('admin.reviews.index', compact('reviews'));
+
+        return view('admin.reviews.index', compact('reviews', 'ratings'));
     }
 
     /**
