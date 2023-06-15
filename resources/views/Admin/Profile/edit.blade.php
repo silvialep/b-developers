@@ -56,7 +56,7 @@
 
         <div class="mb-3">
             <label class="fw-bold" for="phone">Telefono</label>
-            <input class="form-control @error('phone') is-invalid @enderror" type="text" id="phone" name="phone" value="{{old('phone') ?? $developer->phone}}">
+            <input class="form-control @error('phone') is-invalid @enderror" type="tel" pattern="[+]?[0-9]{10, 13}+" maxlength="13" title="Il numero dev'essere valido" id="phone" name="phone" value="{{old('phone') ?? $developer->phone}}">
             
             @error('phone')
               <div class="invalid-feedback">
