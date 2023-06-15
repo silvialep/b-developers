@@ -18,6 +18,19 @@
             return true;
         }
     }
+    function checkPsw(){
+        const password = document.getElementById('password');
+        const passwordConfirm = document.getElementById('password-confirm');
+
+        if(password === passwordConfirm){
+            document.getElementById("chk_psw_error").style.visibility = "hidden";
+            return true;
+        } else {
+            document.getElementById("chk_psw_error").style.visibility = "visible";
+            return false;
+        }
+        
+    }
 </script>
 
 <div class="container mt-4">
@@ -27,7 +40,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" onsubmit="return handleData()">    
+                    <form method="POST" action="{{ route('register') }}" onsubmit="return !! (handleData() & checkPsw())">    
                         @csrf
 
                         <div class="mb-4 row">
@@ -128,6 +141,10 @@
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
+                        </div>
+
+                        <div style="visibility:hidden; color:red; " id="chk_psw_error">
+                            Le password devono coincidere.
                         </div>
 
                         <div class="mb-4 row mb-0">
