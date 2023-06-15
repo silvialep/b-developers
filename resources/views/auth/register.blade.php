@@ -1,6 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
+
+<script>
+    // checkbox validation
+    function handleData()
+    {
+        const form_data = new FormData(document.querySelector("form"));
+        if(!form_data.has("skills[]"))
+        {
+            document.getElementById("chk_option_error").style.visibility = "visible";
+            return false;      
+        }
+        else
+        {
+            document.getElementById("chk_option_error").style.visibility = "hidden";
+            return true;
+        }
+    }
+</script>
+
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -8,7 +27,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" onsubmit="return handleData()">    
                         @csrf
 
                         <div class="mb-4 row">
@@ -62,11 +81,17 @@
                                 <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
                                 @endforeach
                             </div>
+
+                            <div style="visibility:hidden; color:red; " id="chk_option_error">
+                                Seleziona almeno una specializzazione.
+                            </div>
+
                             @error('skills')
                             <span class="text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             @enderror
+
                         </div>
 
                         <div class="mb-4 row">
