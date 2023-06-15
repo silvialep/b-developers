@@ -128,12 +128,12 @@ class DeveloperController extends Controller
           
         }
         
-        $user_id = $developer->user_id;
-        $user = User::where('id', $user_id)->first();
+        // $user_id = $developer->user_id;
+        // $user = User::where('id', $user_id)->first();
 
-        $fullName = $user->name . ' ' . $formData['last_name'];
+        // $fullName = $user->name . ' ' . $formData['last_name'];
 
-        $formData['slug'] = Str::slug($fullName, '-');
+        // $formData['slug'] = Str::slug($fullName, '-');
 
         $developer->update($formData);
 
