@@ -4,13 +4,21 @@
 
 <div class="container mt-3">
 
+    <div class="name">
+      <h3>{{$developer->user?->name}} {{$developer->last_name}}</h3>
+    </div>
+
+    <div class="img my-3">
+      <img id="profile-pic" src="{{asset('storage/' . $developer->picture)}}" alt="profile-picture">
+    </div>
+
     <form action="{{route('admin.profile.update', $developer)}}" method="POST" enctype="multipart/form-data">
 
         @csrf
         
         @method('PUT')
 
-        <div class="mb-3">
+        {{-- <div class="mb-3">
             <label class="fw-bold" for="last_name">Cognome</label>
             <input class="form-control @error('last_name') is-invalid @enderror" type="text" id="last_name" name="last_name" value="{{old('last_name') ?? $developer->last_name}}">
             
@@ -20,7 +28,7 @@
               </div> 
             @enderror
     
-        </div>
+        </div> --}}
 
         <div class="mb-3">
             <label class="fw-bold" for="role">Titolo</label>
@@ -35,7 +43,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="fw-bold" for="address">Indirizzo</label>
+            <label class="fw-bold" for="address">Indirizzo*</label>
             <input class="form-control @error('address') is-invalid @enderror" type="text" id="address" name="address" value="{{old('address') ?? $developer->address}}">
             
             @error('address')
@@ -72,7 +80,7 @@
 
         {{-- Skills --}}
         <div class="mb-3 form-group">
-          <strong>Specializzazioni</strong>
+          <strong>Specializzazioni*</strong>
           <div class="form-check">
             @foreach($skills as $skill)
 
@@ -109,7 +117,9 @@
 
 
     </form>
-
+    <div class="disclaimer mt-3">
+      <em>I campi indicati con * sono obbligatori in fase di registrazione.</em>
+    </div>
 </div>
 
 @endsection
