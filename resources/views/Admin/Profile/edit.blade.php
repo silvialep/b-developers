@@ -145,6 +145,10 @@
           @enderror
         </div>
 
+        <strong class="mb-4">Curriculum</strong>
+        <div class="img my-3">
+          <img id="cv-pic" src="{{asset('storage/' . $developer->cv)}}" alt="profile-cv">
+        </div>
 
         <div class="mb-3">
           <label for="cv">Carica il tuo cv</label>

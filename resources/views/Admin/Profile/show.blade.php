@@ -28,7 +28,8 @@
         </ul>
     </div>
     <hr>
-    <div class="img">
+    <strong>Curriculum</strong>
+    <div class="img my-3">
         <img id="cv-pic" src="{{asset('storage/' . $developer->cv)}}" alt="profile-cv">
     </div>
     <hr>
