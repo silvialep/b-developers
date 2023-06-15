@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('developers', function (Blueprint $table) {
             $table->string('phone', 13)->change();
+            $table->string('role', 100)->change();
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
     {
         Schema::table('developers', function (Blueprint $table) {
             $table->string('phone', 10)->change();
+            $table->string('role', 50)->change();
         });
     }
 };

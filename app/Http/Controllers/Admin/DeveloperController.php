@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class DeveloperController extends Controller
@@ -109,6 +110,7 @@ class DeveloperController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validateForm($request);
         // qui validiamo i dati
         $formData = $request->all();
 
@@ -157,5 +159,33 @@ class DeveloperController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function validateForm($request) {
+        $formData = $request->all();
+        $validator = Validator::make($formData, [
+            'address' => 'required|max:50',
+            'cv' => 'nullable|image|max:4096',
+            'picture' => 'nullable|image|max:4096',
+            'phone' => 'nullable|min:10|max:13',
+            'services' => 'nullable|min:20',
+            'role' => 'nullable|max:100',
+            'skills' => 'required',
+        ],
+        [
+            'address.required' => 'È necessario inserire l\'indirizzo',
+            'address.max' => 'Non puoi superare i :max caratteri',
+            'cv.image' => 'Inserisci un file di formato immagine',
+            'cv.max' => 'L\'immagine non può superare i 4 MB',
+            'picture.image' => 'Inserisci un file di formato immagine',
+            'picture.max' => 'L\'immagine non può superare i 4 MB',
+            'phone.min' => 'Inserisci almeno :min cifre',
+            'phone.max' => 'Non puoi inserire più di :max cifre',
+            'services.min' => 'Inserisci almeno :min caratteri',
+            'role.max' => 'Non puoi inserire più di :max caratteri',
+            'skills.required' => 'Inserisci almeno una specializzazione',
+        ]
+    )->validate();
+    return $validator;
     }
 }

@@ -73,7 +73,7 @@
 
         <div class="mb-3">
             <label class="fw-bold" for="address">Indirizzo*</label>
-            <input class="form-control @error('address') is-invalid @enderror" type="text" id="address" name="address" value="{{old('address') ?? $developer->address}}">
+            <input required class="form-control @error('address') is-invalid @enderror" type="text" id="address" name="address" value="{{old('address') ?? $developer->address}}">
             
             @error('address')
               <div class="invalid-feedback">
@@ -122,7 +122,7 @@
             @endforeach
           </div>
 
-          <div style="visibility:hidden; color:red; " id="chk_option_error">
+          <div class="text-danger" style="visibility:hidden" id="chk_option_error">
             Seleziona almeno una specializzazione.
           </div>
           
