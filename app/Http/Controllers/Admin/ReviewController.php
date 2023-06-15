@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
@@ -14,7 +16,12 @@ class ReviewController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $reviews = Review::where('developer_id', $user->developer->id)->get();
+        // dd($reviews);
+
+
+        return view('admin.reviews.index', compact('reviews'));
     }
 
     /**
@@ -46,7 +53,12 @@ class ReviewController extends Controller
      */
     public function show(Review $review)
     {
-        //
+        $user = Auth::user();
+        if ($review->developer_id != $user->developer->id) {
+            return redirect()->route('admin.reviews.index');
+        } else {
+            return view('admin.reviews.show', compact('review'));
+        }
     }
 
     /**
