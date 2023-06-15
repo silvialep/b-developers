@@ -41,7 +41,20 @@ class RegisteredUserController extends Controller
             'last_name' => ['required', 'string', 'max:50'],
             'address' => ['required', 'string', 'max:50'],
             'skills' => ['required'],
-            // 'skills.*.skills' => ['required'],
+        ],
+        [
+            'name.required' => 'Inserisci il nome',
+            'name.max' => 'Il nome non deve superare i 255 caratteri',
+            'email.required' => 'L\'email è richiesta',
+            'email.email' => 'L\'email dev\'essere nel formato email',
+            'email.max' => 'L\'email non deve superare i 255 caratteri',
+            'email.unique' => 'Questo utente è già registrato',
+            'password.required' => 'Inserisci una password',
+            'last_name.required' => 'Inserisci il cognome',
+            'last_name.max' => 'Il cognome non deve superare i :max caratteri',
+            'address.required' => 'Inserisci l\'indirizzo',
+            'address.max' => 'L\'indirizzo non deve superare i :max caratteri',
+            'skills.required' => 'Inserisci almeno una specializzazione',
         ]);
 
         $user = User::create([
