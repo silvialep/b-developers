@@ -7,6 +7,7 @@ use App\Models\Developer;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -53,7 +54,20 @@ class DeveloperController extends Controller
     {
         $developer = Developer::FindOrFail($id);
 
-        return view('admin.profile.show', compact('developer'));
+        // memorizzo lo user loggato
+        $user = Auth::user();
+        // memorizzo il profilo riferito allo user loggato
+        $devLogged = $user->developer;
+
+        // se l'id passato dal form è diverso da quello del profilo loggato
+        if($id != $user->developer->id){
+            // ritorna alla show del profilo loggato
+            return redirect()->route('admin.profile.show', $devLogged);
+        } else {
+            // mi porta alla rotta show con il developer passato dal form
+            return view('admin.profile.show', compact('developer'));
+        }
+
     }
 
     /**
@@ -70,7 +84,20 @@ class DeveloperController extends Controller
         // skills
         $skills = Skill::all();
 
-        return view('admin.profile.edit', compact('developer', 'skills'));
+        // memorizzo lo user loggato
+        $user = Auth::user();
+        // memorizzo il profilo riferito allo user loggato
+        $devLogged = $user->developer;
+
+        // se l'id passato dal form è diverso da quello del profilo loggato
+        if($id != $user->developer->id){
+            // ritorna alla show del profilo loggato
+            return redirect()->route('admin.profile.edit', $devLogged);
+        } else {
+            return view('admin.profile.edit', compact('developer', 'skills'));
+        }
+
+
     }
 
     /**
