@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DeveloperController;
+use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
     Route::resource('profile', DeveloperController::class);
     Route::get('/', [DashboardController::class, 'home'])->name('dashboard.home');
+
+    Route::resource('messages', MessageController::class);
 
     
 

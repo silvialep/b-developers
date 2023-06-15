@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
@@ -14,7 +16,19 @@ class MessageController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        // $devLogged = $user->developer;
+        $messages = Message::where('developer_id', $user->developer->id)->get();
+        // dd($messages);
+        // if ($messages->developer->id != $user->developer->id) {
+        //     // ritorna alla show del profilo loggato
+        //     return redirect()->route('admin.profile.show', $devLogged);
+        // } else {
+        //     // mi porta alla rotta show con il developer passato dal form
+        //     return view('admin.profile.show', compact('developer'));
+        // }
+
+        return view('admin.messages.index', compact('messages'));
     }
 
     /**

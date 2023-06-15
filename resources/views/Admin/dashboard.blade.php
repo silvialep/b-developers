@@ -13,7 +13,7 @@
                 </div>
             </a>
         
-            <a href="#" class="card dashboard-card" style="width: 18rem;">
+            <a href="{{route('admin.messages.index')}}" class="card dashboard-card" style="width: 18rem;">
                 <img src="{{Vite::asset('resources/img/messages.svg')}}" class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-text">Messaggi</h5>
