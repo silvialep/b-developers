@@ -20,13 +20,7 @@ class MessageController extends Controller
         // $devLogged = $user->developer;
         $messages = Message::where('developer_id', $user->developer->id)->get();
         // dd($messages);
-        // if ($messages->developer->id != $user->developer->id) {
-        //     // ritorna alla show del profilo loggato
-        //     return redirect()->route('admin.profile.show', $devLogged);
-        // } else {
-        //     // mi porta alla rotta show con il developer passato dal form
-        //     return view('admin.profile.show', compact('developer'));
-        // }
+        
 
         return view('admin.messages.index', compact('messages'));
     }
@@ -60,7 +54,12 @@ class MessageController extends Controller
      */
     public function show(Message $message)
     {
-        //
+        $user = Auth::user();
+        if ($message->developer_id != $user->developer->id) {
+            return redirect()->route('admin.messages.index');
+        } else {
+            return view('admin.messages.show', compact('message'));
+        }
     }
 
     /**

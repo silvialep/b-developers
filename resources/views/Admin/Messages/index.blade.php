@@ -27,7 +27,7 @@
                 {{-- <td>{{ \Illuminate\Support\Str::limit($message->content ?? '',100,' ...') }}</td> --}}
                 <td>{{date("d/m/Y H:i", strtotime($message->meeting_date))}}</td>
                 {{-- <td>{{substr($message->meeting_date, 0, 16)}}</td> --}}
-                <td><a href="#">Dettagli</a></td>
+                <td><a href="{{route('admin.messages.show', $message)}}">Dettagli</a></td>
             </tr>
             @endforeach
         </tbody>
