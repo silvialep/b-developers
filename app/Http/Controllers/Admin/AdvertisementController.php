@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Advertisement;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class AdvertisementController extends Controller
      */
     public function index()
     {
-        //
+        $adv = Advertisement::all();
+
+        return view('admin.advertisements.index', compact('adv'));
     }
 
     /**

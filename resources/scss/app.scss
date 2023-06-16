@@ -17,6 +17,88 @@
     }
 }
 
+
+// Sponsorizzazione
+.sponsor{
+  h1{
+    text-align: center;
+    padding-top: .5em;
+    padding-bottom: 1em;
+  }
+  .cards-container{
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    gap: 3em;
+    // flex
+  
+    .card-outer{
+      width: 250px;
+  
+      -webkit-box-shadow: 0px 0px 20px 0px #575757; 
+      box-shadow: 0px 0px 20px 0px #575757;
+  
+      border-radius: 5px;
+      
+      .card-price{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column;
+        // flex
+        border-radius: 5px;
+        height: 200px;
+  
+        font-size: 2.5em;
+  
+        font-weight: bold;
+        text-shadow: 1px 1px 2px #000;
+        color: #fff;
+  
+        background-color: #fec54a;
+
+        .small{
+          font-size: .6em;
+          color: #343434;
+          text-shadow: none;
+        }
+
+        .old_price{
+          color: rgb(249, 50, 50);
+          font-size: .5em;
+          text-shadow: none;
+          text-decoration: line-through;
+        }
+  
+      }
+      .card{
+        border: none; 
+        height: 350px;
+        .card-content{
+          display: flex;
+          flex-flow: column nowrap;
+          // flex
+          height: 100%;
+          text-align: center;
+          padding: 1em;
+          .card-title{
+            padding: 1em 0;
+            margin: 0;
+          }
+          .card-body{
+            // padding-top: 0;
+            font-size: 1.1em;
+            padding: 1em;
+            flex-grow: 1;
+          }
+        }
+      }
+    }
+    
+  }
+}
+
+
 // profile
 
 .img {
@@ -44,6 +126,8 @@
 .fa-regular.fa-star {
   color: rgb(180, 179, 179);
 }
+
+
 
 // Homepage
 .card{

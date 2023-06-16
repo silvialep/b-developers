@@ -19,6 +19,13 @@
                   <h5 class="card-text">Messaggi</h5>
                 </div>
             </a>
+
+            <a href="{{route('admin.advertisements.index')}}" class="card dashboard-card" style="width: 18rem;">
+              <img src="{{Vite::asset('resources/img/sponsor.svg')}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-text">Sponsorizzazioni</h5>
+              </div>
+            </a>
         </div>
 
         <div class="col-12 d-flex justify-content-center gap-5">
@@ -29,11 +36,11 @@
                 </div>
             </a>
         
-              <a href="#" class="card dashboard-card" style="width: 18rem;">
-                <img src="{{Vite::asset('resources/img/statistic.svg')}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-text">Statistiche</h5>
-                </div>
+            <a href="#" class="card dashboard-card" style="width: 18rem;">
+              <img src="{{Vite::asset('resources/img/statistic.svg')}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-text">Statistiche</h5>
+              </div>
             </a>
         </div>
 
