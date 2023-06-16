@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class DeveloperController extends Controller
 {
     public function index(){
-        $developers = Developer::all();
+        $developers = Developer::with('ratings', 'skills', 'user')->get();
 
         return response()->json([
             'success' => true,
