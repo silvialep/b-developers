@@ -22,9 +22,6 @@ class ReviewController extends Controller
         $user = Auth::user();
         $reviews = Review::where('developer_id', $user->developer->id)->get();
         $ratings = Rating::where('developer_id', $user->developer->id)->get();
-        // dd($ratings);
-
-
 
         return view('admin.reviews.index', compact('reviews', 'ratings'));
     }

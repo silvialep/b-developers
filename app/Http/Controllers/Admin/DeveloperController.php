@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Developer;
+use App\Models\Rating;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,7 +22,6 @@ class DeveloperController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -54,6 +54,8 @@ class DeveloperController extends Controller
     public function show($id)
     {
         $developer = Developer::FindOrFail($id);
+        $ratingsAvg = Rating::where('developer_id', $id)->avg('rating');
+        $ratingsNumber = Rating::where('developer_id', $id)->count();
 
         // memorizzo lo user loggato
         $user = Auth::user();
@@ -61,14 +63,13 @@ class DeveloperController extends Controller
         $devLogged = $user->developer;
 
         // se l'id passato dal form è diverso da quello del profilo loggato
-        if($id != $user->developer->id){
+        if ($id != $user->developer->id) {
             // ritorna alla show del profilo loggato
             return redirect()->route('admin.profile.show', $devLogged);
         } else {
             // mi porta alla rotta show con il developer passato dal form
-            return view('admin.profile.show', compact('developer'));
+            return view('admin.profile.show', compact('developer', 'ratingsAvg', 'ratingsNumber'));
         }
-
     }
 
     /**
@@ -91,14 +92,12 @@ class DeveloperController extends Controller
         $devLogged = $user->developer;
 
         // se l'id passato dal form è diverso da quello del profilo loggato
-        if($id != $user->developer->id){
+        if ($id != $user->developer->id) {
             // ritorna alla show del profilo loggato
             return redirect()->route('admin.profile.edit', $devLogged);
         } else {
             return view('admin.profile.edit', compact('developer', 'skills'));
         }
-
-
     }
 
     /**
@@ -117,17 +116,16 @@ class DeveloperController extends Controller
         $developer = Developer::FindOrFail($id);
 
         // qui controllo se ho immagine di profilo e cv
-        if($request->hasFile('picture')){
-          if($developer->picture){
-            Storage::delete($developer->picture);
-          }
+        if ($request->hasFile('picture')) {
+            if ($developer->picture) {
+                Storage::delete($developer->picture);
+            }
 
-          // mi salvo il percorso nella cartella developer_pictures
-          $path = Storage::put('developer_pictures', $request->picture);
+            // mi salvo il percorso nella cartella developer_pictures
+            $path = Storage::put('developer_pictures', $request->picture);
 
-          // memorizzo il path dell'immagine nella tabella
-          $formData['picture'] = $path;
-          
+            // memorizzo il path dell'immagine nella tabella
+            $formData['picture'] = $path;
         }
 
         if ($request->hasFile('cv')) {
@@ -141,7 +139,7 @@ class DeveloperController extends Controller
             // memorizzo il path dell'immagine nella tabella
             $formData['cv'] = $path;
         }
-        
+
         // $user_id = $developer->user_id;
         // $user = User::where('id', $user_id)->first();
 
@@ -152,14 +150,13 @@ class DeveloperController extends Controller
         $developer->update($formData);
 
         // controllo modifiche skills
-        if(array_key_exists('skills', $formData)){
+        if (array_key_exists('skills', $formData)) {
             $developer->skills()->sync($formData['skills']);
         } else {
             $developer->skills()->detach();
         }
-        
-        return redirect()->route('admin.profile.show', $developer);
 
+        return redirect()->route('admin.profile.show', $developer);
     }
 
     /**
@@ -173,31 +170,34 @@ class DeveloperController extends Controller
         //
     }
 
-    private function validateForm($request) {
+    private function validateForm($request)
+    {
         $formData = $request->all();
-        $validator = Validator::make($formData, [
-            'address' => 'required|max:50',
-            'cv' => 'nullable|image|max:4096',
-            'picture' => 'nullable|image|max:4096',
-            'phone' => 'nullable|min:10|max:13',
-            'services' => 'nullable|min:20',
-            'role' => 'nullable|max:100',
-            'skills' => 'required',
-        ],
-        [
-            'address.required' => 'È necessario inserire l\'indirizzo',
-            'address.max' => 'Non puoi superare i :max caratteri',
-            'cv.image' => 'Inserisci un file di formato immagine',
-            'cv.max' => 'L\'immagine non può superare i 4 MB',
-            'picture.image' => 'Inserisci un file di formato immagine',
-            'picture.max' => 'L\'immagine non può superare i 4 MB',
-            'phone.min' => 'Inserisci almeno :min cifre',
-            'phone.max' => 'Non puoi inserire più di :max cifre',
-            'services.min' => 'Inserisci almeno :min caratteri',
-            'role.max' => 'Non puoi inserire più di :max caratteri',
-            'skills.required' => 'Inserisci almeno una specializzazione',
-        ]
-    )->validate();
-    return $validator;
+        $validator = Validator::make(
+            $formData,
+            [
+                'address' => 'required|max:50',
+                'cv' => 'nullable|image|max:4096',
+                'picture' => 'nullable|image|max:4096',
+                'phone' => 'nullable|min:10|max:13',
+                'services' => 'nullable|min:20',
+                'role' => 'nullable|max:100',
+                'skills' => 'required',
+            ],
+            [
+                'address.required' => 'È necessario inserire l\'indirizzo',
+                'address.max' => 'Non puoi superare i :max caratteri',
+                'cv.image' => 'Inserisci un file di formato immagine',
+                'cv.max' => 'L\'immagine non può superare i 4 MB',
+                'picture.image' => 'Inserisci un file di formato immagine',
+                'picture.max' => 'L\'immagine non può superare i 4 MB',
+                'phone.min' => 'Inserisci almeno :min cifre',
+                'phone.max' => 'Non puoi inserire più di :max cifre',
+                'services.min' => 'Inserisci almeno :min caratteri',
+                'role.max' => 'Non puoi inserire più di :max caratteri',
+                'skills.required' => 'Inserisci almeno una specializzazione',
+            ]
+        )->validate();
+        return $validator;
     }
 }

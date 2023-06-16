@@ -21,29 +21,12 @@
                 <td>{{$review->name}}</td>
                 <td>{{$review->comment}}</td>
                 <td>{{date("d/m/Y H:i", strtotime($review->created_at))}}</td>
-                
                 <td><a href="{{route('admin.reviews.show', $review)}}">Dettagli</a></td>
             </tr>
             @endforeach
         </tbody>
     </table>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Voto</th>
-                <th>Data</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($ratings as $rating)
-            <tr>
-                <td>{{$rating->rating}}</td>
-                <td>{{date("d/m/Y H:i", strtotime($rating->created_at))}}</td>
-            </tr>
-            @endforeach
 
-        </tbody>
-    </table>
 </div>
 
 @endsection
