@@ -161,6 +161,13 @@
           @enderror
         </div>
 
+        <div class="adv py-3">
+          <strong class="my-4">Sponsorizzazione</strong>
+          <div class="my-3">
+            <a href="{{route('admin.advertisements.index')}}" class="btn btn-warning">Sponsorizza il profilo</a>  
+          </div>
+        </div>
+
 
         <button class="btn btn-primary" type="submit">Salva</button>
 

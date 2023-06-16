@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Advertisement;
+use App\Models\Developer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdvertisementController extends Controller
 {
@@ -49,7 +51,16 @@ class AdvertisementController extends Controller
      */
     public function show(Advertisement $advertisement)
     {
-        //
+        // // mi prendo l'utente collegato
+        // $user = Auth::user();
+        
+        // // mi prendo il profilo associato tramite la FK
+        // $developer_id = $user->developer->id;
+        
+        // // mi prendo il developer con quel id
+        // $developer = Developer::where('id', $developer_id)->first();
+        
+        return view('admin.advertisements.show', compact('advertisement'));
     }
 
     /**
