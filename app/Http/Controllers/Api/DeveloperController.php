@@ -19,7 +19,7 @@ class DeveloperController extends Controller
         if ($request->has('skill_name') && $requestData['skill_name']) {
 
             // mi salvo tutte le skills che hanno quell'name e che corrispondono a quella specializzazione e le associo ai developers
-            $skill = Skill::where('name', 'like', '%' . $requestData['skill_name'] . '%')->with('developers')->get();
+            $skill = Skill::where('name', 'like', $requestData['skill_name'] . '%')->with('developers')->get();
 
             if (count($skill) == 0) {
                 return response()->json([
