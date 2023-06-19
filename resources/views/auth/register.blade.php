@@ -91,8 +91,10 @@
 
                             <div class="form-check">
                                 @foreach($skills as $skill)
-                                <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked(in_array($skill->id, old('skills', [])))>
-                                <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
+                                @if($skill->name != 'Tutte le specializzazioni')
+                                    <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked(in_array($skill->id, old('skills', [])))>
+                                    <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
+                                @endif
                                 @endforeach
                             </div>
 

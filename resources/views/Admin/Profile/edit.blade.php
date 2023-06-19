@@ -112,13 +112,15 @@
           <strong>Specializzazioni*</strong>
           <div class="form-check">
             @foreach($skills as $skill)
+              @if($skill->name != 'Tutte le specializzazioni')
 
-            @if($errors->any())
-            <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked(in_array($skill->id, old('skills', [])))>
-            @else
-              <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked($developer->skills->contains($skill))>
-            @endif
-              <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
+                @if($errors->any())
+                <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked(in_array($skill->id, old('skills', [])))>
+                @else
+                  <input type="checkbox" id="skill-{{$skill->id}}" name="skills[]" value="{{$skill->id}}" @checked($developer->skills->contains($skill))>
+                @endif
+                  <label for="skill-{{$skill->id}}">{{$skill->name}}</label>
+              @endif
             @endforeach
           </div>
 
