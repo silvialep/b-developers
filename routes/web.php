@@ -33,12 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/errors', function () {
-    return view('errors.notfound');
-})->name('error');
-
-Route::get('error', [DeveloperController::class, 'error'])->name('error');
-
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function() {
 
     Route::resource('profile', DeveloperController::class);

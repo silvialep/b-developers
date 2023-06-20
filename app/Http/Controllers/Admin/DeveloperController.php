@@ -57,17 +57,19 @@ class DeveloperController extends Controller
         $developer = Developer::FindOrFail($id);
         $ratingsAvg = Rating::where('developer_id', $id)->avg('rating');
         $ratingsNumber = Rating::where('developer_id', $id)->count();
-
+        
         // memorizzo lo user loggato
         $user = Auth::user();
         // memorizzo il profilo riferito allo user loggato
         $devLogged = $user->developer;
 
+
         // se l'id passato dal form è diverso da quello del profilo loggato
         if ($id != $user->developer->id) {
-            // ritorna alla show del profilo loggato
-            // return redirect()->route('admin.profile.show', $devLogged);
-            $this->errors();
+
+            // lancio una pagina 404 personalizzata che si trova in views/errors
+            abort(404);
+
             
         } else {
             // mi porta alla rotta show con il developer passato dal form
@@ -204,12 +206,5 @@ class DeveloperController extends Controller
         )->validate();
         return $validator;
     }
-
-    public function errors(){
-        return redirect()->route('error');
-        // return view('errors.notfound');
-        
-    }
-
 
 }
