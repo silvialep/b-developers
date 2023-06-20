@@ -137,7 +137,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="picture">Immagine del profilo</label>
+          <label for="picture">Immagine del profilo (jpeg, png, jpg)</label>
           <input type="file" id="picture" name="picture" class="form-control @error('picture') is-invalid @enderror">
           
           @error('picture')
@@ -153,7 +153,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="cv">Carica il tuo cv</label>
+          <label for="cv">Carica il tuo cv (jpeg, png, jpg)</label>
           <input type="file" id="cv" name="cv" class="form-control @error('cv') is-invalid @enderror">
           
           @error('cv')
