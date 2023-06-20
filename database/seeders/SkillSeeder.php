@@ -122,11 +122,6 @@ class SkillSeeder extends Seeder
               "description" => "Linguaggio di programmazione per lo sviluppo di applicazioni Windows e .NET",
               "logo" => "",
             ],
-            [
-              "name" => "Tutte le specializzazioni",
-              "description" => "",
-              "logo" => "",
-            ]
         ];
 
         foreach ($skills as $skill) {
