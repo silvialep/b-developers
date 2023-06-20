@@ -9,6 +9,7 @@ use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -65,9 +66,12 @@ class DeveloperController extends Controller
         // se l'id passato dal form è diverso da quello del profilo loggato
         if ($id != $user->developer->id) {
             // ritorna alla show del profilo loggato
-            return redirect()->route('admin.profile.show', $devLogged);
+            // return redirect()->route('admin.profile.show', $devLogged);
+            $this->errors();
+            
         } else {
             // mi porta alla rotta show con il developer passato dal form
+            
             return view('admin.profile.show', compact('developer', 'ratingsAvg', 'ratingsNumber'));
         }
     }
@@ -200,4 +204,12 @@ class DeveloperController extends Controller
         )->validate();
         return $validator;
     }
+
+    public function errors(){
+        return redirect()->route('error');
+        // return view('errors.notfound');
+        
+    }
+
+
 }
