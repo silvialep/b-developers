@@ -41,7 +41,7 @@ class DeveloperController extends Controller
             }
             
             // mi creo una variabile contenente solo i developers che hanno l'id a cui appartiene quella skill, memorizzandomi i dati dell'utente 
-            $developers = Developer::whereIn('id', $developers_id)->with('user')->get();
+            $developers = Developer::whereIn('id', $developers_id)->with('user','ratings','skills')->get();
 
             // SCHEMA RIASSUNTIVO: skill->developer->user
             // dd($skill[0]->name);
