@@ -16,10 +16,11 @@ class DeveloperController extends Controller
         $requestData = $request->all();
 
         // controllo se dal frontend mi arriva un parametro contenente la specializzazione
-        if ($request->has('skill_name') && $requestData['skill_name']) {
+        if ($request->has('skill_id') && $requestData['skill_id']) {
 
             // mi salvo tutte le skills che hanno quell'name e che corrispondono a quella specializzazione e le associo ai developers
-            $skill = Skill::where('name', 'like', $requestData['skill_name'] . '%')->with('developers')->get();
+            // $skill = Skill::where('name', 'like', $requestData['skill_name'] . '%')->with('developers')->get();
+            $skill = Skill::where('id', $requestData['skill_id'])->with('developers')->get();
 
             if (count($skill) == 0) {
                 return response()->json([
@@ -55,7 +56,7 @@ class DeveloperController extends Controller
         } else {
             // in caso contrario, passo tutti i developer (nel caso manchi la skill)
             $developers = Developer::with('ratings', 'skills', 'user')->get();
-            $skill = Skill::where('name', 'Tutte le specializzazioni')->get();
+            // $skill = Skill::where('name', 'Tutte le specializzazioni')->get();
         }
         // dd($skill);
         $skills = Skill::all();
@@ -65,7 +66,7 @@ class DeveloperController extends Controller
             'success' => true,
             'results' => $developers,
             'allSkills' => $skills,
-            'params' => $skill[0]->name,
+            // 'params' => $skill[0]->name,
         ]);
     }
 }
