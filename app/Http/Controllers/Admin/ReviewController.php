@@ -22,7 +22,7 @@ class ReviewController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $reviews = Review::where('developer_id', $user->developer->id)->get();
+        $reviews = Review::where('developer_id', $user->developer->id)->orderByDesc('created_at')->get();
         $ratings = Rating::where('developer_id', $user->developer->id)->get();
 
         return view('admin.reviews.index', compact('reviews', 'ratings'));
