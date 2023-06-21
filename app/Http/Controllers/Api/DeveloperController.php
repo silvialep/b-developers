@@ -67,6 +67,11 @@ class DeveloperController extends Controller
             // in caso contrario, passo tutti i developer (nel caso manchi la skill)
             $developers = Developer::with('ratings', 'skills', 'user', 'reviews')->get();
             // $skill = Skill::where('name', 'Tutte le specializzazioni')->get();
+
+            // creo una variabile ratingAVG dentro il singolo oggetto developer
+            $developers = $developers->each(function ($developer) {
+                $developer->ratingAVG = $developer->ratings->avg('rating');
+            });
         }
         // dd($skill);
         $skills = Skill::all();
@@ -84,6 +89,9 @@ class DeveloperController extends Controller
     public function show($slug)
     {
         $developer = Developer::where('slug', $slug)->with('ratings', 'skills', 'user', 'reviews')->first();
+
+        // creo una variabile ratingAVG dentro il singolo oggetto developer
+        $developer->ratingAVG = $developer->ratings->avg('rating');
 
         if ($developer) {
             return response()->json([
