@@ -16,8 +16,7 @@ class DeveloperController extends Controller
         $requestData = $request->all();
 
         // controllo se dal frontend mi arriva un parametro contenente la specializzazione
-        if ($request->has('skill_id') && $requestData['skill_id']) {
-
+        if ($request->has('skill_id') && $requestData['skill_id'] || $request->has('avg') && $requestData['avg']) {
             // mi salvo tutte le skills che hanno quell'name e che corrispondono a quella specializzazione e le associo ai developers
             // $skill = Skill::where('name', 'like', $requestData['skill_name'] . '%')->with('developers')->get();
             $skill = Skill::where('id', $requestData['skill_id'])->with('developers')->get();
@@ -42,6 +41,17 @@ class DeveloperController extends Controller
 
             // mi creo una variabile contenente solo i developers che hanno l'id a cui appartiene quella skill, memorizzandomi i dati dell'utente 
             $developers = Developer::whereIn('id', $developers_id)->with('user', 'ratings', 'skills', 'reviews')->get();
+
+            // creo una variabile ratingAVG dentro il singolo oggetto developer
+            $developers = $developers->each(function ($developer) {
+                $developer->ratingAVG = $developer->ratings->avg('rating');
+            });
+
+            $avg = $requestData['avg'];
+            $developers = $developers->filter(function ($developer) use ($avg) {
+                return $developer->ratingAVG >= $avg;
+            });
+
 
             // SCHEMA RIASSUNTIVO: skill->developer->user
             // dd($skill[0]->name);
