@@ -4,7 +4,8 @@ use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DeveloperController;
 use App\Http\Controllers\Admin\MessageController;
-use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -39,10 +40,17 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('/', [DashboardController::class, 'home'])->name('dashboard.home');
 
     Route::resource('messages', MessageController::class);
-    Route::resource('reviews', ReviewController::class);
+    
 
     // Advertisements
     Route::resource('advertisements', AdvertisementController::class);
+
+
 });
+
+    Route::resource('reviews', ReviewController::class);
+
+    // Ratings
+    Route::resource('ratings', RatingController::class);
 
 require __DIR__.'/auth.php';

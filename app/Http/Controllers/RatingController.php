@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class RatingController extends Controller
 {
@@ -35,7 +37,17 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // leggo tutti i dati del form presenti nella request e mi creo un oggetto
+        $formData = $request->all();
+
+        // creo un nuovo record del modello Review
+        $newRating = new Rating();
+
+        // popolo i campi della tabella
+        $newRating->fill($formData);
+
+        // salvo il record
+        $newRating->save();
     }
 
     /**

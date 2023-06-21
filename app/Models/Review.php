@@ -9,6 +9,8 @@ class Review extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'comment'];
+
     public function developers()
     {
         return $this->belongsTo(Developer::class);

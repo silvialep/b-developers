@@ -9,6 +9,8 @@ class Rating extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['rating'];
+
     public function developers()
     {
         return $this->belongsTo(Developer::class);
