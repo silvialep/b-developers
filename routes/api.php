@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('developers', [DeveloperController::class, 'index']);
 Route::get('/developers/{slug}', [DeveloperController::class, 'show']);
 
-
+// Revires
 Route::resource('reviews', ReviewController::class);
     
 // Ratings

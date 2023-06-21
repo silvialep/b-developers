@@ -36,17 +36,17 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
-                // leggo tutti i dati del form presenti nella request e mi creo un oggetto
-                $formData = $request->all();
+        // leggo tutti i dati del form presenti nella request e mi creo un oggetto
+        $formData = $request->all();
 
-                // creo un nuovo record del modello Review
-                $newRating = new Rating();
-        
-                // popolo i campi della tabella
-                $newRating->fill($formData);
-        
-                // salvo il record
-                $newRating->save();
+        // creo un nuovo record del modello Review
+        $newRating = new Rating();
+
+        // popolo i campi della tabella
+        $newRating->fill($formData);
+
+        // salvo il record
+        $newRating->save();
     }
 
     /**
