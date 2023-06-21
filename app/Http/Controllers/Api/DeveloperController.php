@@ -45,11 +45,17 @@ class DeveloperController extends Controller
             // creo una variabile ratingAVG dentro il singolo oggetto developer
             $developers = $developers->each(function ($developer) {
                 $developer->ratingAVG = $developer->ratings->avg('rating');
+                $developer->numReviews = $developer->reviews->count('id');
             });
 
             $avg = $requestData['avg'];
             $developers = $developers->filter(function ($developer) use ($avg) {
                 return $developer->ratingAVG >= $avg;
+            });
+
+            $numRevs = $requestData['numRevs'];
+            $developers = $developers->filter(function ($developer) use ($numRevs) {
+                return $developer->numReviews >= $numRevs;
             });
 
 
@@ -71,6 +77,7 @@ class DeveloperController extends Controller
             // creo una variabile ratingAVG dentro il singolo oggetto developer
             $developers = $developers->each(function ($developer) {
                 $developer->ratingAVG = $developer->ratings->avg('rating');
+                $developer->numReviews = $developer->reviews->count('id');
             });
         }
         // dd($skill);
@@ -92,6 +99,7 @@ class DeveloperController extends Controller
 
         // creo una variabile ratingAVG dentro il singolo oggetto developer
         $developer->ratingAVG = $developer->ratings->avg('rating');
+        $developer->numReviews = $developer->reviews->count('id');
 
         if ($developer) {
             return response()->json([
