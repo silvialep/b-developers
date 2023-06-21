@@ -47,24 +47,7 @@ class ReviewController extends Controller
     use ValidatesRequests;
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'comment' => 'required',
-        ]);
-
-        // leggo tutti i dati del form presenti nella request e mi creo un oggetto
-        $formData = $request->all();
-
-        // creo un nuovo record del modello Review
-        $newReview = new Review();
-
-        // popolo i campi della tabella
-        $newReview->fill($formData);
-        // slug
-        $newReview->slug = Str::slug($formData['name'], '-');
-
-        // salvo il record
-        $newReview->save();
+        
     }
 
     /**

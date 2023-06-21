@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Rating;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class RatingController extends Controller
+class ReviewController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,16 +37,33 @@ class RatingController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'comment' => 'required',
+        ]);
 
+        // leggo tutti i dati del form presenti nella request e mi creo un oggetto
+        $formData = $request->all();
+
+        // creo un nuovo record del modello Review
+        $newReview = new Review();
+
+        // popolo i campi della tabella
+        $newReview->fill($formData);
+        // slug
+        $newReview->slug = Str::slug($formData['name'], '-');
+
+        // salvo il record
+        $newReview->save();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Rating  $rating
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Rating $rating)
+    public function show($id)
     {
         //
     }
@@ -54,10 +71,10 @@ class RatingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Rating  $rating
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Rating $rating)
+    public function edit($id)
     {
         //
     }
@@ -66,10 +83,10 @@ class RatingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Rating  $rating
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Rating $rating)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -77,10 +94,10 @@ class RatingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Rating  $rating
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rating $rating)
+    public function destroy($id)
     {
         //
     }

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\RatingController;
+use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\DeveloperController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,3 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Rotta API
 Route::get('developers', [DeveloperController::class, 'index']);
 Route::get('/developers/{slug}', [DeveloperController::class, 'show']);
+
+
+Route::resource('reviews', ReviewController::class);
+    
+// Ratings
+Route::resource('ratings', RatingController::class);
