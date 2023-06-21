@@ -28,7 +28,7 @@ class DeveloperController extends Controller
                     'error' => 'Non esiste questa specializzazione',
                 ]);
             }
-            
+
             // memorizzo i developers in una variabile 
             $developers = $skill[0]->developers;
 
@@ -39,15 +39,15 @@ class DeveloperController extends Controller
             for ($i = 0; $i < count($developers); $i++) {
                 $developers_id[] = $developers[$i]->id;
             }
-            
+
             // mi creo una variabile contenente solo i developers che hanno l'id a cui appartiene quella skill, memorizzandomi i dati dell'utente 
-            $developers = Developer::whereIn('id', $developers_id)->with('user','ratings','skills')->get();
+            $developers = Developer::whereIn('id', $developers_id)->with('user', 'ratings', 'skills', 'reviews')->get();
 
             // SCHEMA RIASSUNTIVO: skill->developer->user
             // dd($skill[0]->name);
 
 
-            if (count($developers) == 0 ) {
+            if (count($developers) == 0) {
                 return response()->json([
                     'success' => false,
                     'error' => 'Nessun developer appartenente a questa specializzazione',
@@ -55,7 +55,7 @@ class DeveloperController extends Controller
             }
         } else {
             // in caso contrario, passo tutti i developer (nel caso manchi la skill)
-            $developers = Developer::with('ratings', 'skills', 'user')->get();
+            $developers = Developer::with('ratings', 'skills', 'user', 'reviews')->get();
             // $skill = Skill::where('name', 'Tutte le specializzazioni')->get();
         }
         // dd($skill);
@@ -68,5 +68,23 @@ class DeveloperController extends Controller
             'allSkills' => $skills,
             // 'params' => $skill[0]->name,
         ]);
+    }
+
+
+    public function show($slug)
+    {
+        $developer = Developer::where('slug', $slug)->with('ratings', 'skills', 'user', 'reviews')->first();
+
+        if ($developer) {
+            return response()->json([
+                'success' => true,
+                'developer' => $developer,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'error' => 'Il developer non esiste',
+            ]);
+        }
     }
 }
