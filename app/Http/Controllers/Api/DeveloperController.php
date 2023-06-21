@@ -16,7 +16,7 @@ class DeveloperController extends Controller
         $requestData = $request->all();
 
         // controllo se dal frontend mi arriva un parametro contenente la specializzazione
-        if ($request->has('skill_id') && $requestData['skill_id'] || $request->has('avg') && $requestData['avg']) {
+        if ($request->has('skill_id') && $requestData['skill_id'] || $request->has('avg') && $requestData['avg'] || $request->has('numRevs') && $requestData['numRevs']) {
             // mi salvo tutte le skills che hanno quell'name e che corrispondono a quella specializzazione e le associo ai developers
             // $skill = Skill::where('name', 'like', $requestData['skill_name'] . '%')->with('developers')->get();
             $skill = Skill::where('id', $requestData['skill_id'])->with('developers')->get();
@@ -55,6 +55,7 @@ class DeveloperController extends Controller
 
             $numRevs = $requestData['numRevs'];
             $developers = $developers->filter(function ($developer) use ($numRevs) {
+                // dd($numRevs);
                 return $developer->numReviews >= $numRevs;
             });
 
