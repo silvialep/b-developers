@@ -36,7 +36,7 @@
                 </div>
             </a>
         
-            <a href="#" class="card dashboard-card" style="width: 18rem;">
+            <a href="{{route('admin.statistics')}}" class="card dashboard-card" style="width: 18rem;">
               <img src="{{Vite::asset('resources/img/statistic.svg')}}" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-text">Statistiche</h5>
