@@ -38,7 +38,7 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validateForm($request);
+        $this->validateForm($request);
 
         // leggo tutti i dati del form presenti nella request e mi creo un oggetto
         $formData = $request->all();
@@ -121,7 +121,6 @@ class MessageController extends Controller
                 'subject.required' => 'Devi inserire un oggetto',
                 'email.required' => 'Devi inserire una mail',
                 'content.required' => 'Devi inserire un contenuto',
-                'meeting_date.required' => 'Devi inserire una data',
             ]
         )->validate();
         return $validator;
