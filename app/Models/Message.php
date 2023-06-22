@@ -9,6 +9,8 @@ class Message extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['developer_id', 'name', 'email', 'subject', 'content', 'meeting_date', 'read'];
+
     public function developers() {
         return $this->belongsTo(Developer::class);
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\RatingController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\DeveloperController;
+use App\Http\Controllers\Api\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,6 @@ Route::resource('reviews', ReviewController::class);
     
 // Ratings
 Route::resource('ratings', RatingController::class);
+
+// Messages
+Route::resource('messages', MessageController::class);
