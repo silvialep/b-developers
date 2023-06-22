@@ -5,13 +5,13 @@
 
         <h1>Developers</h1>
 
-        <div class="d-flex flex-wrap gap-3">
+        <div class="d-flex flex-wrap" style="gap:10px">
 
             @foreach ($developers as $developer)
-            <div class="card" style="width: 18rem;">
+            <div class="card"  style="width: calc((100% / 4) - 10px)">
                 <img id="profile-pic" class="card-img-top" src="{{asset('storage/' . $developer->picture)}}" alt="profile-picture">
                 <div class="card-body p-0 d-flex flex-column">
-                  <h5 class="card-title px-3">{{$developer->user?->name}} {{$developer->last_name}}</h5>
+                  <h5 class="card-title px-3 mt-3">{{$developer->user?->name}} {{$developer->last_name}}</h5>
                   <hr>
                   <div class="card-text px-3 flex-grow-1">
                     <div class="address mt-1"><strong>Indirizzo: </strong>{{$developer->address}}</div>

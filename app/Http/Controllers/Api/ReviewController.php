@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class ReviewController extends Controller
@@ -37,10 +38,7 @@ class ReviewController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'comment' => 'required',
-        ]);
+        $this->validateForm($request);
 
         // leggo tutti i dati del form presenti nella request e mi creo un oggetto
         $formData = $request->all();
@@ -100,5 +98,24 @@ class ReviewController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    private function validateForm($request)
+    {
+        $formData = $request->all();
+        $validator = Validator::make(
+            $formData,
+            [
+                'name' => 'required|max:255|min:5',
+                'comment' => 'required',
+            ],
+            [
+                'name.required' => 'Devi inserire il nome',
+                'name.max' => 'Il nome non può superare i :max caratteri',
+                'name.min' => 'Il nome deve avere almeno :min caratteri',
+                'comment.required' => 'Devi inserire il commento'
+            ]
+        )->validate();
+        return $validator;
     }
 }

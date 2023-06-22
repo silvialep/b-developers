@@ -38,7 +38,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Registrati') }}</div>
+                <div class="card-header fs-5">{{ __('Registrazione') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}" onsubmit="return !! (handleData() & checkPsw())">    
