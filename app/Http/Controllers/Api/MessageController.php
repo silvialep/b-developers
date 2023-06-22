@@ -115,7 +115,13 @@ class MessageController extends Controller
                 'meeting_date' => 'nullable',
             ],
             [
-
+                'name.required' => 'Devi inserire il nome',
+                'name.max' => 'Il nome non può superare i :max caratteri',
+                'name.min' => 'Il nome deve avere almeno :min caratteri',
+                'subject.required' => 'Devi inserire un oggetto',
+                'email.required' => 'Devi inserire una mail',
+                'content.required' => 'Devi inserire un contenuto',
+                'meeting_date.required' => 'Devi inserire una data',
             ]
         )->validate();
         return $validator;
