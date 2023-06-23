@@ -24,7 +24,7 @@ class Developer extends Model
 
     public function advertisements()
     {
-        return $this->belongsToMany(Advertisement::class);
+        return $this->belongsToMany(Advertisement::class)->withPivot('starting_date', 'ending_date');
     }
 
     public function messages() {

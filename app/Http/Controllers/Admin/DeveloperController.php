@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Advertisement;
 use App\Models\Developer;
 use App\Models\Rating;
 use App\Models\Skill;
@@ -57,24 +58,31 @@ class DeveloperController extends Controller
         $developer = Developer::FindOrFail($id);
         $ratingsAvg = Rating::where('developer_id', $id)->avg('rating');
         $ratingsNumber = Rating::where('developer_id', $id)->count();
-        
+        $advertisement = Advertisement::join('advertisement_developer', 'advertisement_developer.advertisement_id', '=', 'advertisements.id')
+        ->where('developer_id', $id)
+        ->orderByDesc('ending_date')
+        ->get();
+
         // memorizzo lo user loggato
         $user = Auth::user();
         // memorizzo il profilo riferito allo user loggato
         $devLogged = $user->developer;
 
+        if (count($developer->advertisements) > 0) {
+            $currentAdv = $advertisement[0]->name;
+        } else {
+            $currentAdv = 'Nessuna sponsorizzazione';
+        }
 
         // se l'id passato dal form è diverso da quello del profilo loggato
         if ($id != $user->developer->id) {
 
             // lancio una pagina 404 personalizzata che si trova in views/errors
             abort(404);
-
-            
         } else {
             // mi porta alla rotta show con il developer passato dal form
-            
-            return view('admin.profile.show', compact('developer', 'ratingsAvg', 'ratingsNumber'));
+
+            return view('admin.profile.show', compact('developer', 'ratingsAvg', 'ratingsNumber', 'currentAdv'));
         }
     }
 

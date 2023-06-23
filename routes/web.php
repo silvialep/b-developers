@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Adv_DevController;
 use App\Http\Controllers\Admin\AdvertisementController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DeveloperController;
@@ -56,6 +57,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::get('chart', [ChartJSController::class, 'index'])->name('statistics');
 
 });
+
+Route::post('/adv_dev', [Adv_DevController::class, 'saveAdv'])
+->middleware('auth')
+->name('adv_dev');
 
 
 require __DIR__.'/auth.php';

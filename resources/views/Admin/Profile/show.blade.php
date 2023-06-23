@@ -60,13 +60,9 @@ function remainingStar ($ratingsAvg) {
     <div class="adv">
       <strong>Sponsorizzazione</strong>
       <div>
-        @if(count($developer->advertisements)>0)
-          @foreach($developer->advertisements as $adv)
-            <span>{{$adv->name}}</span>
-          @endforeach
-        @else
-          <span>Profilo non sponsorizzato.</span>
-        @endif
+        
+        <span>{{$currentAdv}}</span>
+        
       </div>
     </div>
 
