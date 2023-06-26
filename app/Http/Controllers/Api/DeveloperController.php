@@ -27,13 +27,23 @@ class DeveloperController extends Controller
                 //     'error' => 'Non esiste questa specializzazione',
                 // ]);
                 $skill = Skill::all();
-                $developers = Developer::with('user', 'ratings', 'skills', 'reviews')->get();
+                $developers = Developer::with('user', 'ratings', 'skills', 'reviews', 'advertisements')->get();
             } else {
                 $developers = $skill[0]->developers;
+                // memorizzo i developers in una variabile 
+    
+                // creo un array vuoto che ciclerò per memorizzare i developers_id
+                $developers_id = [];
+    
+    
+                for ($i = 0; $i < count($developers); $i++) {
+                    $developers_id[] = $developers[$i]->id;
+                }
+    
+                // mi creo una variabile contenente solo i developers che hanno l'id a cui appartiene quella skill, memorizzandomi i dati dell'utente 
+                $developers = Developer::whereIn('id', $developers_id)->with('user', 'ratings', 'skills', 'reviews', 'advertisements')->get();
             }
 
-            // memorizzo i developers in una variabile 
-            // $developers = $skill[0]->developers;
 
             // creo un array vuoto che ciclerò per memorizzare i developers_id
             $developers_id = [];
@@ -43,22 +53,19 @@ class DeveloperController extends Controller
                 $developers_id[] = $developers[$i]->id;
             }
 
-            // mi creo una variabile contenente solo i developers che hanno l'id a cui appartiene quella skill, memorizzandomi i dati dell'utente 
-            $developers = Developer::whereIn('id', $developers_id)->with('user', 'ratings', 'skills', 'reviews')->get();
 
             $numRevs = $requestData['numRevs'];
-
             // Ordinare per numero recensioni
             if ($numRevs == 1) {
                 $developers = Developer::whereIn('id', $developers_id)
                     ->withCount('reviews')
-                    ->with('user', 'ratings', 'skills', 'reviews')
+                    ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
                     ->orderBy('reviews_count', 'desc')
                     ->get();
             } elseif ($numRevs == 2) {
                 $developers = Developer::whereIn('id', $developers_id)
                     ->withCount('reviews')
-                    ->with('user', 'ratings', 'skills', 'reviews')
+                    ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
                     ->orderBy('reviews_count', 'asc')
                     ->get();
             }
@@ -68,7 +75,7 @@ class DeveloperController extends Controller
                 $developer->ratingAVG = $developer->ratings->avg('rating');
                 $developer->numReviews = $developer->reviews->count('id');
             });
-
+            
             $avg = $requestData['avg'];
             $developers = $developers->filter(function ($developer) use ($avg) {
                 return $developer->ratingAVG >= $avg;
@@ -82,6 +89,7 @@ class DeveloperController extends Controller
                     'error' => 'Nessun developer appartenente a questa specializzazione',
                 ]);
             }
+            
         } else {
             // in caso contrario, passo tutti i developer (nel caso manchi la skill)
             $sponsoredDevelopers = Developer::with('ratings', 'skills', 'user', 'reviews', 'advertisements')->whereHas('advertisements', function ($q) {
@@ -100,10 +108,10 @@ class DeveloperController extends Controller
                 $developer->ratingAVG = $developer->ratings->avg('rating');
                 $developer->numReviews = $developer->reviews->count('id');
 
-                $developer->sponsor = $developer->advertisements->filter(function ($adv) {
-                    $nowDate = date("Y-m-d H:i:s");
-                    return $adv->pivot->ending_date >= $nowDate;
-                });
+                // $developer->sponsor = $developer->advertisements->filter(function ($adv) {
+                //     $nowDate = date("Y-m-d H:i:s");
+                //     return $adv->pivot->ending_date >= $nowDate;
+                // });
             });
 
             $notSponsoredDevelopers = $notSponsoredDevelopers->each(function ($developer) {
