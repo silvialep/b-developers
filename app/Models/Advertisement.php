@@ -9,7 +9,8 @@ class Advertisement extends Model
 {
     use HasFactory;
 
-    public function developers() {
+    public function developers()
+    {
         return $this->belongsToMany(Developer::class);
     }
 }

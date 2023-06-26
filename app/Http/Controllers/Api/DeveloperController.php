@@ -22,14 +22,18 @@ class DeveloperController extends Controller
             $skill = Skill::where('id', $requestData['skill_id'])->with('developers')->get();
 
             if (count($skill) == 0) {
-                return response()->json([
-                    'success' => false,
-                    'error' => 'Non esiste questa specializzazione',
-                ]);
+                // return response()->json([
+                //     'success' => false,
+                //     'error' => 'Non esiste questa specializzazione',
+                // ]);
+                $skill = Skill::all();
+                $developers = Developer::with('user', 'ratings', 'skills', 'reviews')->get();
+            } else {
+                $developers = $skill[0]->developers;
             }
 
             // memorizzo i developers in una variabile 
-            $developers = $skill[0]->developers;
+            // $developers = $skill[0]->developers;
 
             // creo un array vuoto che ciclerò per memorizzare i developers_id
             $developers_id = [];
@@ -45,19 +49,18 @@ class DeveloperController extends Controller
             $numRevs = $requestData['numRevs'];
 
             // Ordinare per numero recensioni
-            if($numRevs == 1){
-                $developers= Developer::whereIn('id', $developers_id)
-                ->withCount('reviews')
-                ->with('user', 'ratings', 'skills', 'reviews')
-                ->orderBy('reviews_count', 'desc')
-                ->get();
-
+            if ($numRevs == 1) {
+                $developers = Developer::whereIn('id', $developers_id)
+                    ->withCount('reviews')
+                    ->with('user', 'ratings', 'skills', 'reviews')
+                    ->orderBy('reviews_count', 'desc')
+                    ->get();
             } elseif ($numRevs == 2) {
-                $developers= Developer::whereIn('id', $developers_id)
-                ->withCount('reviews')
-                ->with('user', 'ratings', 'skills', 'reviews')
-                ->orderBy('reviews_count', 'asc')
-                ->get();
+                $developers = Developer::whereIn('id', $developers_id)
+                    ->withCount('reviews')
+                    ->with('user', 'ratings', 'skills', 'reviews')
+                    ->orderBy('reviews_count', 'asc')
+                    ->get();
             }
 
             // creo una variabile ratingAVG dentro il singolo oggetto developer
@@ -81,18 +84,36 @@ class DeveloperController extends Controller
             }
         } else {
             // in caso contrario, passo tutti i developer (nel caso manchi la skill)
-            $developers = Developer::with('ratings', 'skills', 'user', 'reviews')->get();
-            // $skill = Skill::where('name', 'Tutte le specializzazioni')->get();
+            $sponsoredDevelopers = Developer::with('ratings', 'skills', 'user', 'reviews', 'advertisements')->whereHas('advertisements', function ($q) {
+                $nowDate = date("Y-m-d H:i:s");
+                $q->where('ending_date', '>=', $nowDate);
+            })->get();
+
+            $notSponsoredDevelopers = Developer::with('ratings', 'skills', 'user', 'reviews', 'advertisements')->whereDoesntHave('advertisements', function ($q) {
+                $nowDate = date("Y-m-d H:i:s");
+                $q->where('ending_date', '>=', $nowDate);
+            })->get();
+
 
             // creo una variabile ratingAVG dentro il singolo oggetto developer
-            $developers = $developers->each(function ($developer) {
+            $sponsoredDevelopers = $sponsoredDevelopers->each(function ($developer) {
+                $developer->ratingAVG = $developer->ratings->avg('rating');
+                $developer->numReviews = $developer->reviews->count('id');
+
+                $developer->sponsor = $developer->advertisements->filter(function ($adv) {
+                    $nowDate = date("Y-m-d H:i:s");
+                    return $adv->pivot->ending_date >= $nowDate;
+                });
+            });
+
+            $notSponsoredDevelopers = $notSponsoredDevelopers->each(function ($developer) {
                 $developer->ratingAVG = $developer->ratings->avg('rating');
                 $developer->numReviews = $developer->reviews->count('id');
             });
+            $developers = [$sponsoredDevelopers, $notSponsoredDevelopers];
         }
-        // dd($skill);
-        $skills = Skill::all();
 
+        $skills = Skill::all();
 
         return response()->json([
             'success' => true,

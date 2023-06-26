@@ -13,7 +13,8 @@ class Developer extends Model
         'user_id', 'address', 'last_name', 'slug', 'phone', 'services', 'role', 'picture', 'cv'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -27,7 +28,8 @@ class Developer extends Model
         return $this->belongsToMany(Advertisement::class)->withPivot('starting_date', 'ending_date');
     }
 
-    public function messages() {
+    public function messages()
+    {
         return $this->hasMany(Message::class);
     }
 

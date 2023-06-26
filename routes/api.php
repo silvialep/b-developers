@@ -24,11 +24,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Rotta API
 Route::get('developers', [DeveloperController::class, 'index']);
+
 Route::get('/developers/{slug}', [DeveloperController::class, 'show']);
 
 // Reviews
 Route::resource('reviews', ReviewController::class);
-    
+
 // Ratings
 Route::resource('ratings', RatingController::class);
 
