@@ -41,7 +41,9 @@ class DeveloperController extends Controller
                 }
     
                 // mi creo una variabile contenente solo i developers che hanno l'id a cui appartiene quella skill, memorizzandomi i dati dell'utente 
-                $developers = Developer::whereIn('id', $developers_id)->with('user', 'ratings', 'skills', 'reviews', 'advertisements')->get();
+                $developers = Developer::whereIn('id', $developers_id)
+                    ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
+                    ->get();
             }
 
 
@@ -70,6 +72,7 @@ class DeveloperController extends Controller
                     ->get();
             }
 
+            
             // creo una variabile ratingAVG dentro il singolo oggetto developer
             $developers = $developers->each(function ($developer) {
                 $developer->ratingAVG = $developer->ratings->avg('rating');
@@ -80,7 +83,7 @@ class DeveloperController extends Controller
             $developers = $developers->filter(function ($developer) use ($avg) {
                 return $developer->ratingAVG >= $avg;
             });
-
+            
             // SCHEMA RIASSUNTIVO: skill->developer->user
 
             if (count($developers) == 0) {
@@ -127,7 +130,6 @@ class DeveloperController extends Controller
             'success' => true,
             'results' => $developers,
             'allSkills' => $skills,
-            // 'params' => $skill[0]->name,
         ]);
     }
 
