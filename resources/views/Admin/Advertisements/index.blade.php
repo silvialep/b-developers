@@ -29,7 +29,7 @@
             {{$singleAdv->description}}
           </div>
           <div class="button">
-            <a href="{{route('admin.advertisements.show', $singleAdv->id)}}" class="btn btn-warning">Dettaglio</a>
+            <a href="{{route('payment', $singleAdv->id)}}" class="btn btn-warning">Dettaglio</a>
           </div>
         </div>
       </div>

@@ -7,9 +7,25 @@ use App\Models\Advertisement;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Braintree\Gateway;
+
 
 class Adv_DevController extends Controller
 {
+
+    public function create(Advertisement $advertisement)
+    {
+
+        $gateway = new Gateway([
+            'environment' => env('BRAINTREE_ENVIRONMENT'),
+            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
+            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
+            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
+        ]);
+        $clientToken = $gateway->clientToken()->generate();
+        return view('admin.advertisements.show', compact('clientToken', 'advertisement'));
+    }
+
     public function saveAdv(Request $request)
     {
         $user = Auth::user();
@@ -44,9 +60,42 @@ class Adv_DevController extends Controller
         $advertisementId = $request->input('advertisement_id');
         $developer->advertisements()->attach($advertisementId, ['starting_date' => $new_starting_date, 'ending_date' => $new_ending_date]);
 
+        $gateway = new Gateway([
+            'environment' => env('BRAINTREE_ENVIRONMENT'),
+            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
+            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
+            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
+        ]);
+
+        $result = $gateway->transaction()->sale([
+            'amount' => 10,
+            'paymentMethodNonce' => 'fake-valid-nonce',
+            'options' => [
+                'submitForSettlement' => true
+            ]
+        ]);
+
+        if ($result->success) {
+            // pagamento completato
+            $transaction = $result->transaction;
+            $transaction->status;
+            echo "<script>alert('Profilo sponsorizzato correttamente')</script>";
+            return view('admin.dashboard', compact('developer'));
+            // return redirect()->route('admin.dashboard')->with('message', 'Nuova sponsorizzazione creata correttamente');;
+
+            //dd('completato');
+        } else {
+            // errore nel pagamento
+            dd('errore');
+        }
+
+
+        // $advertisementId = $request->input('advertisement_id');
+        // $developer->advertisements()->attach($advertisementId, ['starting_date' => $new_starting_date, 'ending_date' => $new_ending_date]);
+
         
-        echo "<script>alert('Profilo sponsorizzato correttamente')</script>";
-        return view('admin.dashboard', compact('developer'));
+        // echo "<script>alert('Profilo sponsorizzato correttamente')</script>";
+        // return view('admin.dashboard', compact('developer'));
         
     }
 }

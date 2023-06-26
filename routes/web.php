@@ -61,6 +61,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 Route::post('/adv_dev', [Adv_DevController::class, 'saveAdv'])
 ->middleware('auth')
 ->name('adv_dev');
+Route::get('/adv_dev/{advertisement}', [Adv_DevController::class, 'create'])
+->middleware('auth')
+->name('payment');
 
 
 require __DIR__.'/auth.php';
