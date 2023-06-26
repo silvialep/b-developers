@@ -17,7 +17,15 @@ class Adv_DevController extends Controller
         $id = $developer->id;
         
         $new_starting_date = date("Y-m-d H:i:s");
-        $new_ending_date = date("Y-m-d H:i:s", strtotime('+24 hours'));
+
+        if ($request->advertisement_id == 1) {
+            $new_ending_date = date("Y-m-d H:i:s", strtotime('+24 hours'));
+        } else if ($request->advertisement_id == 2) {
+            $new_ending_date = date("Y-m-d H:i:s", strtotime('+72 hours'));
+        } else if ($request->advertisement_id == 3) {
+            $new_ending_date = date("Y-m-d H:i:s", strtotime('+144 hours'));
+        }
+
         $ratingsAvg = Rating::where('developer_id', $id)->avg('rating');
         $ratingsNumber = Rating::where('developer_id', $id)->count();
         $advertisement = Advertisement::join('advertisement_developer', 'advertisement_developer.advertisement_id', '=', 'advertisements.id')
