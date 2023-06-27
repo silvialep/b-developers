@@ -148,15 +148,20 @@ class DeveloperController extends Controller
                 $developer->ratingAVG = $developer->ratings->avg('rating');
                 $developer->numReviews = $developer->reviews->count('id');
 
-                // $developer->sponsor = $developer->advertisements->filter(function ($adv) {
-                //     $nowDate = date("Y-m-d H:i:s");
-                //     return $adv->pivot->ending_date >= $nowDate;
-                // });
+                $developer->sponsor = $developer->advertisements->filter(function ($adv) {
+                    $nowDate = date("Y-m-d H:i:s");
+                    return $adv->pivot->ending_date >= $nowDate;
+                });
             });
 
             $notSponsoredDevelopers = $notSponsoredDevelopers->each(function ($developer) {
                 $developer->ratingAVG = $developer->ratings->avg('rating');
                 $developer->numReviews = $developer->reviews->count('id');
+
+                $developer->sponsor = $developer->advertisements->filter(function ($adv) {
+                    $nowDate = date("Y-m-d H:i:s");
+                    return $adv->pivot->ending_date >= $nowDate;
+                });
             });
             $developers = [$sponsoredDevelopers, $notSponsoredDevelopers];
         }
