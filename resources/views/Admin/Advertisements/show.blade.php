@@ -9,21 +9,29 @@
     <span>Costo: {{$advertisement->price}}&euro;</span>
   </div>
 
-  
-  <form method="POST" action="{{ route('adv_dev', $advertisement) }}" id="payment-form">
-    @csrf
-    {{-- <div id="dropin-container"></div> --}}
-      <div class="col-md-6">
-          <script src="https://js.braintreegateway.com/web/dropin/1.34.0/js/dropin.min.js"
-            data-braintree-dropin-authorization="{{ $clientToken }}"></script>
-          <div id="checkout-message"></div>
 
-          <a href="{{route('admin.advertisements.index')}}" class="btn btn-dark me-2 py-2"><i class="fa-solid fa-arrow-left"></i> Torna indietro</a>
-          <button id="submit-button" class="bn632-hover bn26">Paga adesso</button>
-      </div>
-      <input type="hidden" name="advertisement_id" value="{{ $advertisement->id }}">
-      {{-- <button type="submit" id="submit-button" class="button btn py-2 px-3 button--small button--green">Acquista</button> --}}
-  </form>
+  @if (count($active_adv)>0)
+  <div class="w-50">
+    <p class="alert alert-danger my-3">Finchè avrai delle sponsorizzazioni in corso non potrai acquistarne altre</p>
+    @else 
+
+    <form method="POST" action="{{ route('adv_dev', $advertisement) }}" id="payment-form">
+      @csrf
+      {{-- <div id="dropin-container"></div> --}}
+        <div class="col-md-6">
+            <script src="https://js.braintreegateway.com/web/dropin/1.34.0/js/dropin.min.js"
+              data-braintree-dropin-authorization="{{ $clientToken }}"></script>
+            <div id="checkout-message"></div>
+  
+            <a href="{{route('admin.advertisements.index')}}" class="btn btn-dark me-2 py-2"><i class="fa-solid fa-arrow-left"></i> Torna indietro</a>
+            <button id="submit-button" class="bn632-hover bn26">Paga adesso</button>
+        </div>
+        <input type="hidden" name="advertisement_id" value="{{ $advertisement->id }}">
+        {{-- <button type="submit" id="submit-button" class="button btn py-2 px-3 button--small button--green">Acquista</button> --}}
+    </form>
+      
+  </div>
+  @endif
 </div>
 
 

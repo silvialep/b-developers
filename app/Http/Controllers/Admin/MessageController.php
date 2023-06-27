@@ -17,7 +17,9 @@ class MessageController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $messages = Message::where('developer_id', $user->developer->id)->get();
+        $messages = Message::where('developer_id', $user->developer->id)
+        ->orderBy('created_at', 'desc')
+        ->get();
         
 
         return view('admin.messages.index', compact('messages'));
