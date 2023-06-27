@@ -108,7 +108,7 @@ class MessageController extends Controller
         $validator = Validator::make(
             $formData,
             [
-                'name' => 'required|max:255|min:5',
+                'name' => 'required|max:255',
                 'subject' => 'required',
                 'email' => 'required',
                 'content' => 'required',
@@ -117,7 +117,6 @@ class MessageController extends Controller
             [
                 'name.required' => 'Devi inserire il nome',
                 'name.max' => 'Il nome non può superare i :max caratteri',
-                'name.min' => 'Il nome deve avere almeno :min caratteri',
                 'subject.required' => 'Devi inserire un oggetto',
                 'email.required' => 'Devi inserire una mail',
                 'content.required' => 'Devi inserire un contenuto',

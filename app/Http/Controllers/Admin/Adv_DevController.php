@@ -31,7 +31,7 @@ class Adv_DevController extends Controller
         $user = Auth::user();
         $developer = $user->developer;
         $id = $developer->id;
-        
+
         $new_starting_date = date("Y-m-d H:i:s");
 
         if ($request->advertisement_id == 1) {
@@ -45,13 +45,12 @@ class Adv_DevController extends Controller
         $ratingsAvg = Rating::where('developer_id', $id)->avg('rating');
         $ratingsNumber = Rating::where('developer_id', $id)->count();
         $advertisement = Advertisement::join('advertisement_developer', 'advertisement_developer.advertisement_id', '=', 'advertisements.id')
-        ->where('developer_id', $id)
+            ->where('developer_id', $id)
             ->orderByDesc('ending_date')
             ->get();
-        
-        if(count($developer->advertisements) > 0) {
-            $currentAdv = $advertisement[0]->name;
 
+        if (count($developer->advertisements) > 0) {
+            $currentAdv = $advertisement[0]->name;
         } else {
             $currentAdv = 'Nessuna sponsorizzazione';
         }
@@ -86,16 +85,15 @@ class Adv_DevController extends Controller
             //dd('completato');
         } else {
             // errore nel pagamento
-            dd('errore');
         }
 
 
         // $advertisementId = $request->input('advertisement_id');
         // $developer->advertisements()->attach($advertisementId, ['starting_date' => $new_starting_date, 'ending_date' => $new_ending_date]);
 
-        
+
         // echo "<script>alert('Profilo sponsorizzato correttamente')</script>";
         // return view('admin.dashboard', compact('developer'));
-        
+
     }
 }
