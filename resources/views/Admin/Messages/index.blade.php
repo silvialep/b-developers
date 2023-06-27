@@ -14,6 +14,7 @@
                 <th scope="col">Oggetto</th>
                 <th scope="col">Messaggio</th>
                 <th scope="col">Appuntamento</th>
+                <th scope="col">Ricevuto il</th>
                 <th></th>
             </tr>
         </thead>
@@ -24,9 +25,14 @@
                 <td>{{$message->email}}</td>
                 <td>{{$message->subject}}</td>
                 <td>{{substr($message->content, 0, 50) . '...'}}</td>
-                {{-- <td>{{ \Illuminate\Support\Str::limit($message->content ?? '',100,' ...') }}</td> --}}
-                <td>{{date("d/m/Y H:i", strtotime($message->meeting_date))}}</td>
-                {{-- <td>{{substr($message->meeting_date, 0, 16)}}</td> --}}
+                <td>
+                    @if(isset($message->meeting_date))
+                        {{date("d/m/Y H:i", strtotime($message->meeting_date))}}
+                    @else 
+                        -
+                    @endif
+                </td>
+                <td>{{date("d/m/Y H:i", strtotime($message->created_at))}}</td>
                 <td><a href="{{route('admin.messages.show', $message)}}">Dettagli</a></td>
             </tr>
             @endforeach

@@ -11,7 +11,7 @@
             <tr>
                 <th scope="col">Nome</th>
                 <th scope="col">Commento</th>
-                <th scope="col">Data</th>
+                <th scope="col">Ricevuta il</th>
                 <th></th>
             </tr>
         </thead>
