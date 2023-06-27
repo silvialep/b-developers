@@ -7,6 +7,7 @@ use App\Models\Developer;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
+// use Illuminate\Database\Eloquent\Builder;
 
 class DeveloperController extends Controller
 {
@@ -64,6 +65,33 @@ class DeveloperController extends Controller
                     ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
                     ->orderBy('reviews_count', 'desc')
                     ->get();
+
+                    
+
+
+                // $sponsoredDevelopers = Developer::with('ratings', 'skills', 'user', 'reviews', 'advertisements')
+                // ->withCount('reviews')
+                // ->whereHas('advertisements', function ($q) {
+                //     $nowDate = date("Y-m-d H:i:s");
+                //     $q->where('ending_date', '>=', $nowDate);
+                // })
+                //     ->orderBy('reviews_count', 'desc')
+                //     ->get();
+                
+                // $notSponsoredDevelopers = Developer::with('ratings', 'skills', 'user', 'reviews', 'advertisements')
+                // ->withCount('reviews')
+                // ->whereDoesntHave('advertisements', function ($q) {
+                //     $nowDate = date("Y-m-d H:i:s");
+                //     $q->where('ending_date', '>=', $nowDate);
+                // })
+                //     ->orderBy('reviews_count', 'desc')
+                //     ->get();
+
+                // $developers = $sponsoredDevelopers->concat($notSponsoredDevelopers)->sortByDesc(function ($developer) {
+                //     return $developer->advertisements->count();
+                // })->values();
+                
+
             } elseif ($numRevs == 2) {
                 $developers = Developer::whereIn('id', $developers_id)
                     ->withCount('reviews')
