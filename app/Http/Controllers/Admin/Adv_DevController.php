@@ -64,8 +64,11 @@ class Adv_DevController extends Controller
                 echo "<script>alert('Hai già una sponsorizzazione attiva')</script>";
                 return view('admin.dashboard', compact('developer'));
             }
+        } else {
+            $advertisementId = $request->input('advertisement_id');
+            $developer->advertisements()->attach($advertisementId, ['starting_date' => $new_starting_date, 'ending_date' => $new_ending_date]);
         }
-        
+
         $gateway = new Gateway([
             'environment' => env('BRAINTREE_ENVIRONMENT'),
             'merchantId' => env('BRAINTREE_MERCHANT_ID'),
