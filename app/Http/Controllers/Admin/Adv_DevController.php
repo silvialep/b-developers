@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Advertisement;
+use App\Models\Developer;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,9 @@ class Adv_DevController extends Controller
 
     public function create(Advertisement $advertisement)
     {
+        $now = date("Y-m-d H:i:s");
+        $developer = Developer::where('user_id', Auth::user()->id)->first();
+        $active_adv = $developer->advertisements()->where('developer_id', $developer->id)->where('ending_date', '>', $now)->get();
 
         $gateway = new Gateway([
             'environment' => env('BRAINTREE_ENVIRONMENT'),
@@ -23,7 +27,7 @@ class Adv_DevController extends Controller
             'privateKey' => env('BRAINTREE_PRIVATE_KEY')
         ]);
         $clientToken = $gateway->clientToken()->generate();
-        return view('admin.advertisements.show', compact('clientToken', 'advertisement'));
+        return view('admin.advertisements.show', compact('clientToken', 'advertisement', 'developer', 'active_adv'));
     }
 
     public function saveAdv(Request $request)
