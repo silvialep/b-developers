@@ -32,15 +32,15 @@ class DeveloperController extends Controller
             } else {
                 $developers = $skill[0]->developers;
                 // memorizzo i developers in una variabile 
-    
+
                 // creo un array vuoto che ciclerò per memorizzare i developers_id
                 $developers_id = [];
-    
-    
+
+
                 for ($i = 0; $i < count($developers); $i++) {
                     $developers_id[] = $developers[$i]->id;
                 }
-    
+
                 // mi creo una variabile contenente solo i developers che hanno l'id a cui appartiene quella skill, memorizzandomi i dati dell'utente 
                 $developers = Developer::whereIn('id', $developers_id)
                     ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
@@ -66,61 +66,87 @@ class DeveloperController extends Controller
                 //     ->orderBy('reviews_count', 'desc')
                 //     ->get();
 
-                    
 
-                    
+
+
 
 
                 $sponsoredDevelopers = $developers = Developer::whereIn('id', $developers_id)
-                ->withCount('reviews')
-                ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
-                ->whereHas('advertisements', function (Builder $query) {
-                    $query->whereRaw('(now() between starting_date and ending_date)');
-                })
-                ->orderBy('reviews_count', 'desc')
-                ->get();
-                
+                    ->withCount('reviews')
+                    ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
+                    ->whereHas('advertisements', function (Builder $query) {
+                        $query->whereRaw('(now() between starting_date and ending_date)');
+                    })
+                    ->orderBy('reviews_count', 'desc')
+                    ->get();
+
                 $notSponsoredDevelopers = $developers = Developer::whereIn('id', $developers_id)
-                ->withCount('reviews')
-                ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
-                ->whereDoesntHave('advertisements', function (Builder $query) {
-                    $query->whereRaw('(now() between starting_date and ending_date)');
-                })
-                ->orderBy('reviews_count', 'desc')
-                ->get();
+                    ->withCount('reviews')
+                    ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
+                    ->whereDoesntHave('advertisements', function (Builder $query) {
+                        $query->whereRaw('(now() between starting_date and ending_date)');
+                    })
+                    ->orderBy('reviews_count', 'desc')
+                    ->get();
 
                 $developers = $sponsoredDevelopers->concat($notSponsoredDevelopers)->values();
 
 
                 $developers = $developers->each(function ($developer) {
-    
+
                     $developer->sponsor = $developer->advertisements->filter(function ($adv) {
                         $nowDate = date("Y-m-d H:i:s");
                         return $adv->pivot->ending_date >= $nowDate;
                     });
                 });
-                
-
             } elseif ($numRevs == 2) {
-                $developers = Developer::whereIn('id', $developers_id)
+                // $developers = Developer::whereIn('id', $developers_id)
+                //     ->withCount('reviews')
+                //     ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
+                //     ->orderBy('reviews_count', 'asc')
+                //     ->get();
+                $sponsoredDevelopers = $developers = Developer::whereIn('id', $developers_id)
                     ->withCount('reviews')
                     ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
+                    ->whereHas('advertisements', function (Builder $query) {
+                        $query->whereRaw('(now() between starting_date and ending_date)');
+                    })
                     ->orderBy('reviews_count', 'asc')
                     ->get();
+
+                $notSponsoredDevelopers = $developers = Developer::whereIn('id', $developers_id)
+                    ->withCount('reviews')
+                    ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
+                    ->whereDoesntHave('advertisements', function (Builder $query) {
+                        $query->whereRaw('(now() between starting_date and ending_date)');
+                    })
+                    ->orderBy('reviews_count', 'asc')
+                    ->get();
+
+                $developers = $sponsoredDevelopers->concat($notSponsoredDevelopers)->values();
+
+
+                $developers = $developers->each(function ($developer) {
+
+                    $developer->sponsor = $developer->advertisements->filter(function ($adv) {
+                        $nowDate = date("Y-m-d H:i:s");
+                        return $adv->pivot->ending_date >= $nowDate;
+                    });
+                });
             }
 
-            
+
             // creo una variabile ratingAVG dentro il singolo oggetto developer
             $developers = $developers->each(function ($developer) {
                 $developer->ratingAVG = $developer->ratings->avg('rating');
                 $developer->numReviews = $developer->reviews->count('id');
             });
-            
+
             $avg = $requestData['avg'];
             $developers = $developers->filter(function ($developer) use ($avg) {
                 return $developer->ratingAVG >= $avg;
             });
-            
+
             // SCHEMA RIASSUNTIVO: skill->developer->user
 
             if (count($developers) == 0) {
@@ -129,7 +155,6 @@ class DeveloperController extends Controller
                     'error' => 'Nessun developer appartenente a questa specializzazione',
                 ]);
             }
-            
         } else {
             // in caso contrario, passo tutti i developer (nel caso manchi la skill)
             $sponsoredDevelopers = Developer::with('ratings', 'skills', 'user', 'reviews', 'advertisements')->whereHas('advertisements', function ($q) {
