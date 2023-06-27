@@ -2,10 +2,10 @@
 
 @section('content')
 
-<div class="container mt-3">
+<div class="container mt-3" style="position:relative">
 
   @if(isset($message))
-  <div class="alert alert-info alert-dismissible fade show" role="alert">
+  <div class="alert alert-info alert-dismissible fade show text-center" style="position: absolute; top:-10%; left:0; right:0; margin: 0 auto;" role="alert">
     {{ $message }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Chiudi"></button>
   </div>

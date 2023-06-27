@@ -56,33 +56,7 @@
               });
           })
           });
-          
-      $("document").ready(function(){
-        setTimeout(function () {
-            $('#exampleModal').modal('show');
-          }, 3000);
-        });
-      
 
-      var myModal = document.getElementById('myModal')
-      var myInput = document.getElementById('myInput')
-
-      myModal.addEventListener('shown.bs.modal', function () {
-        myInput.focus()
-      })
 
   </script>
 @endsection
-
-{{-- 
-  <script src="https://js.braintreegateway.com/web/dropin/1.36.0/js/dropin.js"></script>
-
-  <div id="dropin-container"></div>
-  <form method="POST" action="{{ route('adv_dev') }}">
-      @csrf
-      <input type="hidden" name="advertisement_id" value="{{ $advertisement->id }}">
-      <a href="{{route('admin.advertisements.index')}}" class="btn btn-dark me-2 py-2"><i class="fa-solid fa-arrow-left"></i> Torna indietro</a>
-      <button type="submit" id="submit-button" class="button btn py-2 px-3 button--small button--green">Acquista</button>
-  </form>
-</div>
-@endsection --}}
