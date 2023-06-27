@@ -7,7 +7,7 @@ use App\Models\Developer;
 use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Http\Request;
-// use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder;
 
 class DeveloperController extends Controller
 {
@@ -60,36 +60,45 @@ class DeveloperController extends Controller
             $numRevs = $requestData['numRevs'];
             // Ordinare per numero recensioni
             if ($numRevs == 1) {
-                $developers = Developer::whereIn('id', $developers_id)
-                    ->withCount('reviews')
-                    ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
-                    ->orderBy('reviews_count', 'desc')
-                    ->get();
+                // $developers = Developer::whereIn('id', $developers_id)
+                //     ->withCount('reviews')
+                //     ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
+                //     ->orderBy('reviews_count', 'desc')
+                //     ->get();
+
+                    
 
                     
 
 
-                // $sponsoredDevelopers = Developer::with('ratings', 'skills', 'user', 'reviews', 'advertisements')
-                // ->withCount('reviews')
-                // ->whereHas('advertisements', function ($q) {
-                //     $nowDate = date("Y-m-d H:i:s");
-                //     $q->where('ending_date', '>=', $nowDate);
-                // })
-                //     ->orderBy('reviews_count', 'desc')
-                //     ->get();
+                $sponsoredDevelopers = $developers = Developer::whereIn('id', $developers_id)
+                ->withCount('reviews')
+                ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
+                ->whereHas('advertisements', function (Builder $query) {
+                    $query->whereRaw('(now() between starting_date and ending_date)');
+                })
+                ->orderBy('reviews_count', 'desc')
+                ->get();
                 
-                // $notSponsoredDevelopers = Developer::with('ratings', 'skills', 'user', 'reviews', 'advertisements')
-                // ->withCount('reviews')
-                // ->whereDoesntHave('advertisements', function ($q) {
-                //     $nowDate = date("Y-m-d H:i:s");
-                //     $q->where('ending_date', '>=', $nowDate);
-                // })
-                //     ->orderBy('reviews_count', 'desc')
-                //     ->get();
+                $notSponsoredDevelopers = $developers = Developer::whereIn('id', $developers_id)
+                ->withCount('reviews')
+                ->with('user', 'ratings', 'skills', 'reviews', 'advertisements')
+                ->whereDoesntHave('advertisements', function (Builder $query) {
+                    $query->whereRaw('(now() between starting_date and ending_date)');
+                })
+                ->orderBy('reviews_count', 'desc')
+                ->get();
 
-                // $developers = $sponsoredDevelopers->concat($notSponsoredDevelopers)->sortByDesc(function ($developer) {
-                //     return $developer->advertisements->count();
-                // })->values();
+                $developers = $sponsoredDevelopers->concat($notSponsoredDevelopers)->values();
+
+
+                $developers = $developers->each(function ($developer) {
+    
+                    $developer->sponsor = $developer->advertisements->filter(function ($adv) {
+                        $nowDate = date("Y-m-d H:i:s");
+                        return $adv->pivot->ending_date >= $nowDate;
+                    });
+                });
                 
 
             } elseif ($numRevs == 2) {
