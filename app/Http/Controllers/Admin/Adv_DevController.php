@@ -65,7 +65,7 @@ class Adv_DevController extends Controller
                 $advertisementId = $request->input('advertisement_id');
                 $developer->advertisements()->attach($advertisementId, ['starting_date' => $new_starting_date, 'ending_date' => $new_ending_date]);
             } else {
-                echo "<script>alert('Hai già una sponsorizzazione attiva')</script>";
+                // echo "<script>alert('Hai già una sponsorizzazione attiva')</script>";
                 return view('admin.dashboard', compact('developer'));
             }
         } else {
@@ -92,8 +92,9 @@ class Adv_DevController extends Controller
             // pagamento completato
             $transaction = $result->transaction;
             $transaction->status;
-            echo "<script>alert('Profilo sponsorizzato correttamente')</script>";
-            return view('admin.dashboard', compact('developer'));
+            $message = 'Sponsorizzazione acquistata!';
+            // echo "<script>alert('Profilo sponsorizzato correttamente')</script>";
+            return view('admin.dashboard', compact('developer', 'message'));
             // return redirect()->route('admin.dashboard')->with('message', 'Nuova sponsorizzazione creata correttamente');;
 
             //dd('completato');

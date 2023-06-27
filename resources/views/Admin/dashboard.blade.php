@@ -4,6 +4,13 @@
 
 <div class="container mt-3">
 
+  @if(isset($message))
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    {{ $message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Chiudi"></button>
+  </div>
+  @endif
+
     <div class="row d-flex flex-wrap justify-content-center gap-5" id="dashboard-row">
         <div class="col-12 d-flex justify-content-center gap-5">
             <a href="{{route('admin.profile.show', $developer->id)}}" class="card dashboard-card" style="width: 18rem;">
@@ -45,7 +52,6 @@
         </div>
 
     </div>
-    
 
     
 

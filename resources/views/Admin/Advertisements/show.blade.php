@@ -24,14 +24,16 @@
             <div id="checkout-message"></div>
   
             <a href="{{route('admin.advertisements.index')}}" class="btn btn-dark me-2 py-2"><i class="fa-solid fa-arrow-left"></i> Torna indietro</a>
-            <button id="submit-button" class="bn632-hover bn26">Paga adesso</button>
+            <button id="submit-button" class="btn btn-success me-2 py-2" data-bs-toggle="modal" data-bs-target="#exampleModal" class="bn632-hover bn26">Paga adesso</button>
         </div>
         <input type="hidden" name="advertisement_id" value="{{ $advertisement->id }}">
         {{-- <button type="submit" id="submit-button" class="button btn py-2 px-3 button--small button--green">Acquista</button> --}}
     </form>
       
   </div>
+  
   @endif
+
 </div>
 
 
@@ -54,6 +56,21 @@
               });
           })
           });
+          
+      $("document").ready(function(){
+        setTimeout(function () {
+            $('#exampleModal').modal('show');
+          }, 3000);
+        });
+      
+
+      var myModal = document.getElementById('myModal')
+      var myInput = document.getElementById('myInput')
+
+      myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+      })
+
   </script>
 @endsection
 
