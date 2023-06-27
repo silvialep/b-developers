@@ -55,10 +55,17 @@ class Adv_DevController extends Controller
             $currentAdv = 'Nessuna sponsorizzazione';
         }
 
-
-        $advertisementId = $request->input('advertisement_id');
-        $developer->advertisements()->attach($advertisementId, ['starting_date' => $new_starting_date, 'ending_date' => $new_ending_date]);
-
+        $nowDate = date("Y-m-d H:i:s");
+        if (count($developer->advertisements) > 0) {
+            if ($advertisement[0]->ending_date < $nowDate) {
+                $advertisementId = $request->input('advertisement_id');
+                $developer->advertisements()->attach($advertisementId, ['starting_date' => $new_starting_date, 'ending_date' => $new_ending_date]);
+            } else {
+                echo "<script>alert('Hai già una sponsorizzazione attiva')</script>";
+                return view('admin.dashboard', compact('developer'));
+            }
+        }
+        
         $gateway = new Gateway([
             'environment' => env('BRAINTREE_ENVIRONMENT'),
             'merchantId' => env('BRAINTREE_MERCHANT_ID'),
