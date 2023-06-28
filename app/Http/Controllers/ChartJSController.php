@@ -21,8 +21,8 @@ class ChartJSController extends Controller
         $messages = Message::select(DB::raw("COUNT(*) as count"), DB::raw("DATE_FORMAT(created_at, '%m/%Y') as month_name"))
             ->where('developer_id', $devLogged)
             ->whereYear('created_at', '>=', Carbon::now()->subMonths(12)->year)
-            ->groupBy('month_name', 'created_at')
-            ->orderBy('created_at', 'asc')
+            ->groupBy('month_name')
+            ->orderBy('month_name', 'asc')
             ->pluck('count', 'month_name');
 
         $labels = $this->getPast12Months();
@@ -32,8 +32,8 @@ class ChartJSController extends Controller
         $reviews = Review::select(DB::raw("COUNT(*) as count"), DB::raw("DATE_FORMAT(created_at, '%m/%Y') as month_name"))
             ->where('developer_id', $devLogged)
             ->whereYear('created_at', '>=', Carbon::now()->subMonths(12)->year)
-            ->groupBy('month_name', 'created_at')
-            ->orderBy('created_at', 'asc')
+            ->groupBy('month_name')
+            ->orderBy('month_name', 'asc')
             ->pluck('count', 'month_name');
 
         $labelsReviews = $this->getPast12Months();
@@ -56,17 +56,19 @@ class ChartJSController extends Controller
     }
 
     private function populateData($labels, $values)
-    {
-        $data = [];
+{
+    $data = [];
 
-        foreach ($labels as $label) {
-            if (isset($values[$label])) {
-                $data[] = $values[$label];
-            } else {
-                $data[] = 0;
-            }
+    foreach ($labels as $label) {
+        if ($values->has($label)) {
+            $data[] = $values[$label];
+        } else {
+            $data[] = 0;
         }
-
-        return $data;
     }
+
+    $data = array_values($data);
+
+    return $data;
+}
 }
