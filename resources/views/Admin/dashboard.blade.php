@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container mt-3" style="position:relative">
+<div class="container my-3" style="position:relative">
 
   
   @if(isset($message))

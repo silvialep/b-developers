@@ -2,12 +2,12 @@
 
 @section('content')
 
-<div class="container mt-3">
+<div class="container my-4 mb-5">
   <h1 class="pb-3">Statistiche</h1>
 
   <h3>Messaggi Ricevuti</h3>
   <canvas id="messagesChart"></canvas>
-  <h3>Recensioni Ricevute</h3>
+  <h3 class="mt-5">Recensioni Ricevute</h3>
   <canvas id="reviewsChart"></canvas>
 </div>
 
