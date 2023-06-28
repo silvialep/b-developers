@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="container mt-4">
+    <div class="container my-4">
 
         <h1>Developers</h1>
 
-        <div class="d-flex flex-wrap" style="gap:10px">
+        <div class="mt-3 d-flex flex-wrap" style="gap:10px">
 
             @foreach ($developers as $developer)
             <div class="card"  style="width: calc((100% / 4) - 10px)">

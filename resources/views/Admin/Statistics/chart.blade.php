@@ -7,7 +7,7 @@
 
   <h3>Messaggi Ricevuti</h3>
   <canvas id="messagesChart"></canvas>
-  <h3>Recensioni Ricevute</h3>
+  <h3 class="mt-5">Recensioni Ricevute</h3>
   <canvas id="reviewsChart"></canvas>
 </div>
 
