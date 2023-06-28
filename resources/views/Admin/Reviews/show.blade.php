@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container mt-4">
+<div class="container mt-4 profile-show">
     <h1>Dettaglio della recensione</h1>
     <hr>
     <div class="mb-3 mittente">

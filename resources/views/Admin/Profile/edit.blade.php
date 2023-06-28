@@ -31,7 +31,7 @@
   }
 </script>
 
-<div class="container mt-3">
+<div class="container mt-3 profile-show">
 
     <div class="name">
       <h3>{{$developer->user?->name}} {{$developer->last_name}}</h3>

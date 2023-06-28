@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container my-3">
+<div class="container my-3 profile-show">
   <h1>Sponsor: {{$advertisement->name}}</h1>
   <hr>
   <div class="info">

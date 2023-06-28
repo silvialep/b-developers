@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container mt-3">
+<div class="container mt-3 profile-show">
   <h1 class="pb-3">Statistiche</h1>
 
   <h3>Messaggi Ricevuti</h3>

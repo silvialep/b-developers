@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container mt-3">
+<div class="container mt-3 profile-show">
 
     <h2 class="my-2">Messaggi</h2>
 
@@ -11,9 +11,9 @@
             <tr>
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
-                <th scope="col">Oggetto</th>
-                <th scope="col">Messaggio</th>
-                <th scope="col">Appuntamento</th>
+                <th scope="col" class="delete-column">Oggetto</th>
+                <th scope="col" class="delete-column">Messaggio</th>
+                <th scope="col" class="delete-column">Appuntamento</th>
                 <th scope="col">Ricevuto il</th>
                 <th></th>
             </tr>
@@ -23,9 +23,9 @@
             <tr>
                 <td>{{$message->name}}</td>
                 <td>{{$message->email}}</td>
-                <td>{{$message->subject}}</td>
-                <td>{{substr($message->content, 0, 50) . '...'}}</td>
-                <td>
+                <td class="delete-column">{{$message->subject}}</td>
+                <td class="delete-column">{{substr($message->content, 0, 50) . '...'}}</td>
+                <td class="delete-column">
                     @if(isset($message->meeting_date))
                         {{date("d/m/Y H:i", strtotime($message->meeting_date))}}
                     @else 

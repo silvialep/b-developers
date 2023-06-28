@@ -26,7 +26,7 @@ function remainingStar ($ratingsAvg) {
 
 
 
-<div class="container mt-3">
+<div class="container mt-3 profile-show">
 
     <h1>Il mio profilo</h1>
     <hr>
