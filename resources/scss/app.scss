@@ -1,19 +1,62 @@
 @import '~bootstrap/scss/bootstrap';
 
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+//navbar
+
+.nav-bar-cont {
+  height: 105px;
+  background-color: rgb(20, 110, 190);
+
+  .nav-container {
+    height: 105px;
+
+    .logo_bdevelopers {
+      height: 105px;
+    
+      img {
+        padding: 18px 0;
+        height: 100%;
+      }
+    }
+  }
+
+}
+
+
+
+
+
 // dashboard
 
 #dashboard-row{
     
-    margin-top: 150px;
-    
+    margin-top: 30px;
+    a {
+      text-decoration: none;
+    }
     .dashboard-card{
-        text-align: center;
-        
-        img{
-            width: 300px;
-            height: 300px;
-            object-fit: contain;
-        }
+      text-align: center;
+      border: 2px solid white;
+      transition: none;
+      -webkit-transition: all .4s ease;
+
+      &:hover {
+        color: rgb(20, 110, 190);
+        border: 2px solid rgb(20, 110, 190);
+        box-shadow: 7px 7px 5px 0px rgba(191, 184, 184, 0.7);
+        -webkit-box-shadow: 7px 7px 5px 0px rgba(191, 184, 184, 0.7);
+        -moz-box-shadow: 7px 7px 5px 0px rgba(191, 184, 184, 0.7);
+        transition: none;
+        -webkit-transition: all .4s ease;
+      }
+      
+      img{
+          width: 300px;
+          height: 300px;
+          object-fit: contain;
+      }
     }
 }
 
