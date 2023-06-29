@@ -11,7 +11,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Chiudi"></button>
   </div>
   @endif
-  <h2 class="text-center fs-1" style="padding-top:80px;color: rgb(20, 110, 190)">Benvenuto, {{$developer->user->name}} <i class="fa-regular fa-face-grin-beam"></i></h2>
+  <h2 class="text-center fs-1" style="padding-top:80px;color: rgb(20, 110, 190)">Ciao {{$developer->user->name}} <i class="fa-regular fa-face-grin-beam"></i></h2>
 
     <div class="row d-flex flex-wrap justify-content-center gap-5" id="dashboard-row">
         <div class="col-12-lg d-flex justify-content-center gap-5 single-row">
