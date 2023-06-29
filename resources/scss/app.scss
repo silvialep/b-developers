@@ -3,6 +3,7 @@
 * {
   font-family: 'Montserrat', sans-serif;
 }
+
 //navbar
 
 .nav-bar-cont {
@@ -29,7 +30,7 @@
 
     .logo-bdevelopers {
       height: 105px;
-    
+
       img {
         padding: 18px 0;
         height: 100%;
@@ -40,34 +41,34 @@
 }
 
 @media only screen and (max-width: 768px) {
-.nav-bar-cont .nav-container .nav-links {
-  display: none;
+  .nav-bar-cont .nav-container .nav-links {
+    display: none;
 
-}
-
-.nav-bar-cont .nav-container {
-  display: flex;
-  justify-content: space-between;
-
-  .nav-burger {
-    display: inline-block;
-    color: white;
-    align-self: center;
-    margin-right: 10px;
-
-    .dropdown .btn {
-      font-size: 1.5rem;
-    }
-
-    a {
-      color: white;
-
-      // &:active
-    }
   }
 
-} 
-  
+  .nav-bar-cont .nav-container {
+    display: flex;
+    justify-content: space-between;
+
+    .nav-burger {
+      display: inline-block;
+      color: white;
+      align-self: center;
+      margin-right: 10px;
+
+      .dropdown .btn {
+        font-size: 1.5rem;
+      }
+
+      a {
+        color: white;
+
+        // &:active
+      }
+    }
+
+  }
+
 
 }
 
@@ -81,36 +82,37 @@
 
 // dashboard
 
-#dashboard-row{
-    
-    margin-top: 30px;
+#dashboard-row {
 
-    a {
-      text-decoration: none;
-    }
-    .dashboard-card{
-      text-align: center;
-      border: 2px solid white;
+  margin-top: 30px;
+
+  a {
+    text-decoration: none;
+  }
+
+  .dashboard-card {
+    text-align: center;
+    border: 2px solid white;
+    transition: none;
+    -webkit-transition: all .4s ease;
+    width: 18rem;
+
+    &:hover {
+      color: rgb(20, 110, 190);
+      border: 2px solid rgb(20, 110, 190);
+      box-shadow: 7px 7px 5px 0px rgba(191, 184, 184, 0.7);
+      -webkit-box-shadow: 7px 7px 5px 0px rgba(191, 184, 184, 0.7);
+      -moz-box-shadow: 7px 7px 5px 0px rgba(191, 184, 184, 0.7);
       transition: none;
       -webkit-transition: all .4s ease;
-      width: 18rem;
-
-      &:hover {
-        color: rgb(20, 110, 190);
-        border: 2px solid rgb(20, 110, 190);
-        box-shadow: 7px 7px 5px 0px rgba(191, 184, 184, 0.7);
-        -webkit-box-shadow: 7px 7px 5px 0px rgba(191, 184, 184, 0.7);
-        -moz-box-shadow: 7px 7px 5px 0px rgba(191, 184, 184, 0.7);
-        transition: none;
-        -webkit-transition: all .4s ease;
-      }
-      
-      img{
-          width: 300px;
-          height: 300px;
-          object-fit: contain;
-      }
     }
+
+    img {
+      width: 300px;
+      height: 300px;
+      object-fit: contain;
+    }
+  }
 }
 
 
@@ -152,28 +154,29 @@
 
 
 // Sponsorizzazione
-.sponsor{
-  h1{
+.sponsor {
+  h1 {
     text-align: center;
     padding-top: .5em;
     padding-bottom: 1em;
   }
-  .cards-container{
+
+  .cards-container {
     display: flex;
     justify-content: center;
     flex-flow: row nowrap;
     gap: 3em;
     // flex
-  
-    .card-outer{
+
+    .card-outer {
       width: 250px;
-  
-      -webkit-box-shadow: 0px 0px 20px 0px #575757; 
+
+      -webkit-box-shadow: 0px 0px 20px 0px #575757;
       box-shadow: 0px 0px 20px 0px #575757;
-  
+
       border-radius: 5px;
-      
-      .card-price{
+
+      .card-price {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -181,44 +184,48 @@
         // flex
         border-radius: 5px;
         height: 200px;
-  
+
         font-size: 2.5em;
-  
+
         font-weight: bold;
         text-shadow: 1px 1px 2px #000;
         color: #fff;
-  
+
         background-color: #fec54a;
 
-        .small{
+        .small {
           font-size: .6em;
           color: #343434;
           text-shadow: none;
         }
 
-        .old_price{
+        .old_price {
           color: rgb(249, 50, 50);
           font-size: .5em;
           text-shadow: none;
           text-decoration: line-through;
         }
-  
+
       }
-      .card{
-        border: none; 
+
+      .card {
+        border: none;
         height: 350px;
-        .card-content{
+
+        .card-content {
           display: flex;
           flex-flow: column nowrap;
           // flex
           height: 100%;
           text-align: center;
           padding: 1em;
-          .card-title{
+
+          .card-title {
             padding: 1em 0;
             margin: 0;
           }
-          .card-body{
+
+          .card-body {
             // padding-top: 0;
             font-size: 1.1em;
             padding: 1em;
@@ -227,7 +234,7 @@
         }
       }
     }
-    
+
   }
 }
 
@@ -236,9 +243,9 @@
     max-width: 450px;
 
     .cards-container {
-     flex-flow: column;
-     align-items: center;
-   }
+      flex-flow: column;
+      align-items: center;
+    }
 
   }
 }
@@ -260,7 +267,7 @@
 
 
 .img {
-  #profile-pic{
+  #profile-pic {
     width: 200px;
     height: 200px;
     object-fit: cover;
@@ -271,7 +278,7 @@
 
   #cv-pic {
     width: 400px;
-    
+
   }
 }
 
@@ -289,14 +296,18 @@
   .profile-show {
     max-width: 450px;
     margin: auto;
+
+    .img #cv-pic {
+      width: 100%;
+    }
   }
 }
 
 
 
 // Homepage
-.card{
-  #profile-pic{
+.card {
+  #profile-pic {
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -304,17 +315,17 @@
   }
 }
 
-#notfound-container{
+#notfound-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 4em;
 
-  #notfound-robot{
+  #notfound-robot {
     width: 200px;
     margin: 0 auto;
     fill: #2c0a0f;
-    
+
   }
 }
 
@@ -324,19 +335,19 @@ footer {
   #footer-bottom {
     background-color: rgb(20, 110, 190);
     color: white;
-  
+
     span {
       color: white;
       text-decoration: none;
-  
+
       &:hover {
         cursor: pointer;
         color: blueviolet;
       }
-  
+
     }
   }
-  
+
   h6 {
     display: flex;
     align-items: center;
@@ -346,18 +357,18 @@ footer {
       margin-right: 5px;
     }
   }
-  
-  
+
+
   .footer-lil-title {
     margin-left: 10px;
   }
-  
+
   #footer-icons {
-  
+
     span {
       transition: none;
       -webkit-transition: all .4s ease;
-  
+
       &:hover {
         transform: scale(1.2);
         transition: none;
